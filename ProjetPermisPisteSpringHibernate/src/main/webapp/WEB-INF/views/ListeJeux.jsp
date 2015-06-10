@@ -26,13 +26,13 @@
  
   <input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
    <p><a href="index.htm">[Accueil]</a></p>
- <table>
+ <table class="table table-striped">
     <tr>   
-      <th>Numéro Jeu </th>
-      <th>Libellé du jeu </th>
+      <th>Numéro</th>
+      <th>Libellé</th>
     
     </tr>
-  <c:forEach  items="${mesJeux}"  var="item" >
+  <c:forEach items="${mesJeux}" var="item" >
   <tr>
       <td>${item.numjeu}</td>
      <td>${item.libellejeu}</td>
