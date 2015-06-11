@@ -1,18 +1,21 @@
 package com.epul.permispiste.dao;
 
-import org.hibernate.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.epul.permispiste.service.ServiceHibernate;
+import metier.Action;
+import metier.Jeu;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import com.epul.permispiste.gestiondeserreurs.MonException;
 import com.epul.permispiste.gestiondeserreurs.ServiceHibernateException;
-import metier.*;
-
-import java.util.*;
+import com.epul.permispiste.service.ServiceHibernate;
 
 public class HibernateClient {
-	
-	
-	private List<Jeu> mesJeux = null;
+
 	private Session session;
 
 	// On rï¿½cupï¿½re toutes les lignes de la table dans une liste
@@ -22,25 +25,61 @@ public class HibernateClient {
 	 * @see hibernate.service.InterfaceHibrnateStage#getTouteslesLignes()
 	 */
 
-	public List<Jeu> getTouteslesLignes() throws HibernateException,
+	public List<Jeu> getTouslesJeux() throws HibernateException,
 			ServiceHibernateException {
+		List<Jeu> mesJeux = null;
 		try {
-			System.out.println("Get toutes les lignes :Je vais lire le fichier de conf ");
 			session = ServiceHibernate.currentSession();
-			// On passe une requï¿½te de type SQL mlais on travaille sur la classe
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
 			Query query = session.createQuery("SELECT j  FROM Jeu AS j");
-			mesJeux =  (List<Jeu>) query.list();
+			mesJeux = query.list();
 		} catch (Exception ex) {
-			
 			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
-			
-			throw new MonException("Erreur  Hibernate: ",ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
 		}
 		return mesJeux;
 	}
 
-	// On rï¿½cupï¿½re une ligne avec une clï¿½
+	public List<Action> getToutesLesActions() throws HibernateException,
+			ServiceHibernateException {
+		List<Action> mesActions = new ArrayList<Action>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM Action AS j");
+			mesActions = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesActions;
+	}
 
+	public Action getUneAction(int numAction) throws HibernateException,
+			ServiceHibernateException {
+		Action action = null;
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session
+					.createQuery("SELECT j  FROM Action AS j where j.numaction = "
+							+ numAction);
+			List<Action> actions = query.list();
+			if (actions != null && actions.size() > 0) {
+				action = actions.get(0);
+			}
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return action;
+	}
+
+	// On rï¿½cupï¿½re une ligne avec une clï¿½
+	// TODO : modifier pour éviter d'appeler tous les jeux (voir getUneAction)
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -48,12 +87,12 @@ public class HibernateClient {
 	 * hibernate.service.InterfaceHibrnateStage#getUneLigne(java.lang.String)
 	 */
 
-	public Jeu getUneLigne(int num) throws ServiceHibernateException ,Exception{
+	public Jeu getUnJeu(int num) throws ServiceHibernateException, Exception {
 		boolean trouve = false;
 		Jeu unJeu = null;
 		try {
-			mesJeux = getTouteslesLignes();
-            int i =0;
+			List<Jeu> mesJeux = getTouslesJeux();
+			int i = 0;
 			while (i < mesJeux.size() && !trouve) {
 				unJeu = mesJeux.get(i);
 				if (unJeu.getNumjeu() == num)
@@ -69,5 +108,4 @@ public class HibernateClient {
 		return unJeu;
 	}
 
-	
 }

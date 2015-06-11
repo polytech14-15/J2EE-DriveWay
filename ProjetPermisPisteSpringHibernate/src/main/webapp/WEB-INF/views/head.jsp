@@ -20,6 +20,7 @@
 		 
 		<script type="text/javascript" src="resources/js/jquery.min.js"></script>
 		<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>	
+		<script type="text/javascript" src="resources/js/main.js"></script>
 <!-- 		<script type="text/javascript" src="resources/js/js_verification.js"></script> -->
 
 <script language="JavaScript">
@@ -36,7 +37,7 @@
       }
   </script>
 </head>
-
+ 
 
 <body onLoad="Chargement();" style="padding-bottom : 75px;">
 	<nav class="navbar navbar-default navbar-inverse">
@@ -62,8 +63,8 @@
 					Truc<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="ajouterTruc.htm">Ajouter un truc</a></li>
-						<li><a href="listeTrucs.htm">Afficher tous les trucs</a></li>
+						<li><a href="afficherAction.htm">Afficher une action</a></li>
+						<li><a href="listeActions.htm">Afficher toutes les actions</a></li>
 					</ul>
 					</li>
 			</ul>
