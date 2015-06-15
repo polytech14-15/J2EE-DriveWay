@@ -93,7 +93,7 @@ $( document ).ready(function() {
 <footer>
     <div class="navbar navbar-inverse navbar-fixed-bottom">
         <div class="container" style="color : white; text-align: center;">
-            Créé par : Jéremy DeSousa, Marc-Antoine Sayn-Urpar, Sebastien Duret et Quentin Dégrange
+            Créé par : Jéremy DeSousa, Marc-Antoine Sayn-Urpar, Sébastien Duret et Quentin Dégrange
         </div>
     </div>
 </footer>
