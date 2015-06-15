@@ -1,6 +1,6 @@
 <%@ include file="head.jsp"%>
 
-<h1>Liste des Jeux</h1>
+<h1>Liste des Actions</h1>
 
 <div class="col-md-6">
 

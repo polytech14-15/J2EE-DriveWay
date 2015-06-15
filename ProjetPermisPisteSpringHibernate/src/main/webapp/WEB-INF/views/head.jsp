@@ -31,9 +31,9 @@
       }
       function Chargement()
       {
-          var obj = document.getElementById("id_erreur");
-          if (obj.value!='')
-             alert('Erreur signalée  : "'+obj.value+"'");
+//           var obj = document.getElementById("id_erreur");
+//           if (obj.value!='')
+//              alert('Erreur signalée  : "'+obj.value+"'");
       }
   </script>
 </head>
@@ -58,9 +58,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="dropdown" id="Truc">
+				<li class="dropdown" id="Action">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					Truc<span class="caret"></span>
+					Actions<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherAction.htm">Afficher une action</a></li>
@@ -84,8 +84,8 @@
 <script> 
 $( document ).ready(function() {
 	// met l'onglet courrant de la barre head en gras
-    if(window.location.pathname.indexOf("Truc") >= 0){
-        $('.dropdown#Truc > a').attr('style', "font-weight: bold; font-size: 1.3em;"); 
+    if(window.location.pathname.indexOf("Action") >= 0){
+        $('.dropdown#Action > a').attr('style', "font-weight: bold; font-size: 1.3em;"); 
         }
 });
 </script>
