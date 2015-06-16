@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import metier.Action;
+import metier.Apprenant;
 import metier.Jeu;
 
 import org.slf4j.Logger;
@@ -45,6 +46,26 @@ public class MultiController extends MultiActionController {
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate);
 		return "/index";
+	}
+
+	/**
+	 * Affichage de l'apprenant
+	 */
+	@RequestMapping(value = "afficherApprenant.htm")
+	public ModelAndView afficherApprenant(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			// TODO
+			Apprenant apprenant = unGestClient.getUnApprenant(0);
+			request.setAttribute("apprenant", apprenant);
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+		destinationPage = "/AfficherApprenant";
+		return new ModelAndView(destinationPage);
 	}
 
 	/**
