@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metier.Action;
+import metier.Apprenant;
 import metier.Jeu;
 
 import org.hibernate.HibernateException;
@@ -106,6 +107,40 @@ public class HibernateClient {
 			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
 		}
 		return unJeu;
+	}
+	
+	
+	public Apprenant getUnApprenant(int id) throws HibernateException,
+	ServiceHibernateException {
+		Apprenant a = null;
+		try {
+			session = ServiceHibernate.currentSession();
+			Query query = session
+					.createQuery("SELECT j  FROM Apprenant AS j where j.numapprenant = "
+							+ id);
+			List<Apprenant> apprenants = query.list();
+			if (apprenants != null && apprenants.size() > 0) {
+				a = apprenants.get(0);
+			}
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return a;
+	}
+	
+	public void sauverApprenant(Apprenant apprenant) throws ServiceHibernateException, Exception {
+		try {
+				session = ServiceHibernate.currentSession();
+				session.beginTransaction();
+				session.saveOrUpdate(apprenant);
+				session.getTransaction().commit();
+		} catch (ServiceHibernateException ex) {
+			throw new ServiceHibernateException("Erreur de service Hibernate: "
+					+ ex.getMessage(), ex);
+		} catch (Exception ex) {
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
 	}
 
 }

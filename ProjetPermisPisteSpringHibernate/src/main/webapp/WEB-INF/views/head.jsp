@@ -31,15 +31,16 @@
       }
       function Chargement()
       {
-//           var obj = document.getElementById("id_erreur");
-//           if (obj.value!='')
-//              alert('Erreur signalée  : "'+obj.value+"'");
+          var obj = document.getElementById("id_erreur");
+          if (obj.value!='')
+             alert('Erreur signalée  : "'+obj.value+"'");
       }
   </script>
 </head>
  
 
-<body onLoad="Chargement();" style="padding-bottom : 75px;">
+<!-- <body onLoad="Chargement();" style="padding-bottom : 75px;"> -->
+<body style="padding-bottom : 75px;">
 	<nav class="navbar navbar-default navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,6 +68,16 @@
 						<li><a href="listeActions.htm">Afficher toutes les actions</a></li>
 					</ul>
 					</li>
+					
+					<li class="dropdown" id="Apprenant">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					Apprenants<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+<!-- 						<li><a href="listeApprenants.htm">Afficher les apprenants</a></li> -->
+						<li><a href="ajoutApprenant.htm">Ajouter un apprenant</a></li>
+					</ul>
+					</li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
@@ -77,6 +88,35 @@
 
 
 
+
+
+<c:if test="${not empty messageSuccess}">
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <p>${messageSuccess}</p>
+</div>
+</c:if>
+
+<c:if test="${not empty messageInfo}">
+<div class="alert alert-info alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <p>${messageInfo}</p>
+</div>
+</c:if>
+
+<c:if test="${not empty messageWarning}">
+<div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <p>${messageWarning}</p>
+</div>
+</c:if>
+
+<c:if test="${not empty messageDanger}">
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <p>${messageDanger}</p>
+</div>
+</c:if>
 
 
 

@@ -1,6 +1,7 @@
 package com.epul.permispiste.controle;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import metier.Action;
+import metier.Apprenant;
 import metier.Jeu;
+import metier.Obtient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +106,74 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 		destinationPage = "/ListeActions";
+		return new ModelAndView(destinationPage);
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * Ajout d'un apprenant
+	 */
+	@RequestMapping(value = "ajoutApprenant.htm")
+	public ModelAndView ajouterApprenant(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+		HibernateClient unGestClient = new HibernateClient();
+
+		String att = (String) request.getParameter("nom");
+		if (att!=null && !att.equals("")){
+			// on a rempli le formulaire, on va ajouter l'apprenant
+			Apprenant a = new Apprenant();
+			a.setNomapprenant((String)request.getParameter("nom"));
+			a.setPrenomapprenant((String)request.getParameter("prenom"));
+			try {
+				unGestClient.sauverApprenant(a);
+			} catch (Exception e) {
+				request.setAttribute("MesErreurs", e.getMessage());
+				request.setAttribute("messageDanger", "Erreur lors de l'enregistrement ...");
+			}
+			request.setAttribute("messageSuccess", "Apprenant enregistré !");
+		} else {
+			// on n'a pas encore rempli le formulaire
+			request.setAttribute("apprenant", new Apprenant());
+		}
+
+		destinationPage = "/ajoutApprenant";
+		return new ModelAndView(destinationPage);
+	}
+	
+	/**
+	 * Affichage de tous les apprenants
+	 */
+	@RequestMapping(value = "listeApprenants.htm")
+	public ModelAndView listeApprenants(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO
+		String destinationPage;
+//		HibernateClient unGestClient = new HibernateClient();
+//
+//		String att = (String) request.getParameter("nom");
+//		if (att!=null && !att.equals("")){
+//			// on a rempli le formulaire, on va ajouter l'apprenant
+//			Apprenant a = new Apprenant();
+//			a.setNomapprenant((String)request.getParameter("nom"));
+//			a.setPrenomapprenant((String)request.getParameter("prenom"));
+//			try {
+//				unGestClient.sauverApprenant(a);
+//			} catch (Exception e) {
+//				request.setAttribute("MesErreurs", e.getMessage());
+//				request.setAttribute("messageDanger", "Erreur lors de l'enregistrement ...");
+//			}
+//			request.setAttribute("messageSuccess", "Apprenant enregistré !");
+//		} else {
+//			// on n'a pas encore rempli le formulaire
+//			request.setAttribute("apprenant", new Apprenant());
+//		}
+//
+		destinationPage = "/listeApprenants";
 		return new ModelAndView(destinationPage);
 	}
 }
