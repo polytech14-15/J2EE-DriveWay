@@ -5,7 +5,12 @@ import java.util.List;
 
 import metier.Action;
 import metier.Apprenant;
+import metier.Calendrier;
+import metier.Indicateur;
 import metier.Jeu;
+import metier.Mission;
+import metier.Objectif;
+import metier.Regle;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -40,6 +45,43 @@ public class HibernateClient {
 			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
 		}
 		return mesJeux;
+	}
+
+	public List<Apprenant> getTouslesApprenant() throws HibernateException,
+			ServiceHibernateException {
+		List<Apprenant> mesApprenants = null;
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM Apprenant AS j");
+			mesApprenants = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesApprenants;
+	}
+
+	public Apprenant getUnApprenant(int numApprenant)
+			throws HibernateException, ServiceHibernateException {
+		Apprenant apprenant = null;
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session
+					.createQuery("SELECT j  FROM Apprenant AS j where j.numapprenant = "
+							+ numApprenant);
+			List<Apprenant> apprenants = query.list();
+			if (apprenants != null && apprenants.size() > 0) {
+				apprenant = apprenants.get(0);
+			}
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return apprenant;
 	}
 
 	public List<Action> getToutesLesActions() throws HibernateException,
@@ -79,6 +121,86 @@ public class HibernateClient {
 		return action;
 	}
 
+	public List<Calendrier> getTousLesCalendriers() throws HibernateException,
+			ServiceHibernateException {
+		List<Calendrier> mesCalendriers = new ArrayList<Calendrier>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM calendrier AS j");
+			mesCalendriers = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesCalendriers;
+	}
+
+	public List<Indicateur> getTousLesIndicateurs() throws HibernateException,
+			ServiceHibernateException {
+		List<Indicateur> mesIndicateurs = new ArrayList<Indicateur>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM indicateur AS j");
+			mesIndicateurs = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesIndicateurs;
+	}
+
+	public List<Mission> getToutesLesMissions() throws HibernateException,
+			ServiceHibernateException {
+		List<Mission> mesMissions = new ArrayList<Mission>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM mission AS j");
+			mesMissions = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesMissions;
+	}
+
+	public List<Objectif> getTousLesObjectifs() throws HibernateException,
+			ServiceHibernateException {
+		List<Objectif> mesObjectifs = new ArrayList<Objectif>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM objectif AS j");
+			mesObjectifs = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesObjectifs;
+	}
+
+	public List<Regle> getToutesLesRegles() throws HibernateException,
+			ServiceHibernateException {
+		List<Regle> mesRegles = new ArrayList<Regle>();
+		try {
+			session = ServiceHibernate.currentSession();
+			// On passe une requï¿½te de type SQL mlais on travaille sur la
+			// classe
+			Query query = session.createQuery("SELECT j  FROM regle AS j");
+			mesRegles = query.list();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+		return mesRegles;
+	}
+
 	// On rï¿½cupï¿½re une ligne avec une clï¿½
 	// TODO : modifier pour éviter d'appeler tous les jeux (voir getUneAction)
 	/*
@@ -107,26 +229,6 @@ public class HibernateClient {
 			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
 		}
 		return unJeu;
-	}
-	
-	
-	public Apprenant getUnApprenant(int id) throws HibernateException,
-	ServiceHibernateException {
-		Apprenant a = null;
-		try {
-			session = ServiceHibernate.currentSession();
-			Query query = session
-					.createQuery("SELECT j  FROM Apprenant AS j where j.numapprenant = "
-							+ id);
-			List<Apprenant> apprenants = query.list();
-			if (apprenants != null && apprenants.size() > 0) {
-				a = apprenants.get(0);
-			}
-		} catch (Exception ex) {
-			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
-			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
-		}
-		return a;
 	}
 	
 	public void sauverApprenant(Apprenant apprenant) throws ServiceHibernateException, Exception {

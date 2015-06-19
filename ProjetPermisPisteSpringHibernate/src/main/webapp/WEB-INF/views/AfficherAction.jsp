@@ -22,6 +22,7 @@
 				<tr>
 					<th>NumAction</th>
 					<th>Libelle</th>
+					<th>Action parente</th>
 					<th>Score minimum</th>
 				</tr>
 			</thead>
@@ -29,6 +30,14 @@
 				<tr>
 					<td>${uneAction.numaction}</td>
 					<td>${uneAction.libaction}</td>
+					<c:choose>
+						<c:when test="${not empty uneAction.action}">
+							<td>${uneAction.action.libaction}</td>
+						</c:when>
+						<c:otherwise>
+							<td>""</td>
+						</c:otherwise>
+					</c:choose>
 					<td>${uneAction.scoremin}</td>
 				</tr>
 			</tbody>

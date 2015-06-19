@@ -66,6 +66,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherAction.htm">Afficher une action</a></li>
 						<li><a href="listeActions.htm">Afficher toutes les actions</a></li>
+						<li><a href="afficherApprenant.htm">Afficher un apprenant</a></li>
 					</ul>
 					</li>
 					
