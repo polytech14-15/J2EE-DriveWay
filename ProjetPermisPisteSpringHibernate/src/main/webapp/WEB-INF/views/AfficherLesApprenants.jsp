@@ -103,13 +103,13 @@
 						<td>${apprenant.prenomapprenant}</td>
 						<td>
 						<button type="button" class="btn btn-default" onclick="getActions('${apprenant.numapprenant}')">Infos</button>
-						<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default modifierApprenant" data-toggle="modal" data-target="#modifierModal" data-numero="${apprenant.numapprenant}" data-nom="${apprenant.nomapprenant}" data-prenom="${apprenant.prenomapprenant}">Modifier</button>
-				       	<button type="button" class="btn btn-default" form="delForm" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet apprenant ?');">Supprimer</button>
-				       	</div>
 				       	<form id="delForm" method="post" action="supprimerApprenant.htm" onsubmit="">
 							<input type="hidden" name="id" value="${apprenant.numapprenant}" id="id"/>
 						</form>
+						<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default modifierApprenant" data-toggle="modal" data-target="#modifierModal" data-numero="${apprenant.numapprenant}" data-nom="${apprenant.nomapprenant}" data-prenom="${apprenant.prenomapprenant}">Modifier</button>
+				       	<button type="submit" class="btn btn-default" form="delForm" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet apprenant ?');">Supprimer</button>
+				       	</div>
 						</td>
 					</tr>
 				</c:forEach>
