@@ -1,46 +1,18 @@
--- phpMyAdmin SQL Dump
--- version 4.0.9
--- http://www.phpmyadmin.net
---
--- Client: 127.0.0.1
--- Généré le: Jeu 25 Juin 2015 à 12:59
--- Version du serveur: 5.5.34
--- Version de PHP: 5.4.22
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Base de données: `permispiste`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `action`
---
-
 CREATE TABLE IF NOT EXISTS `action` (
   `NUMACTION` int(11) NOT NULL AUTO_INCREMENT,
   `LIBACTION` char(25) DEFAULT NULL,
-  PRIMARY KEY (`NUMACTION`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+  PRIMARY KEY (`NUMACTION`)
+) ;
 
 --
 -- Contenu de la table `action`
 --
 
-INSERT INTO `action` (`NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
-(1, 'lala', 20),
-(2, 'Manger biloute', 10),
-(3, 'Manger une pomme', 1000),
-(4, 'Chanter', 10);
+INSERT INTO `action` (`NUMACTION`, `LIBACTION`) VALUES
+(1, 'lala'),
+(2, 'Manger biloute'),
+(3, 'Manger une pomme'),
+(4, 'Chanter');
 
 -- --------------------------------------------------------
 
@@ -54,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `appartient` (
   PRIMARY KEY (`NUMJEU`,`NUMACTION`),
   KEY `APPARTIENT_FK` (`NUMJEU`),
   KEY `APPARTIENT2_FK` (`NUMACTION`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -67,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `apprenant` (
   `NOMAPPRENANT` char(25) DEFAULT NULL,
   `PRENOMAPPRENANT` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMAPPRENANT`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ;
 
 --
 -- Contenu de la table `apprenant`
@@ -92,7 +64,7 @@ INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALU
 CREATE TABLE IF NOT EXISTS `calendrier` (
   `DATEJOUR` date NOT NULL,
   PRIMARY KEY (`DATEJOUR`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)  ;
 
 --
 -- Contenu de la table `calendrier`
@@ -113,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `est_associe` (
   PRIMARY KEY (`NUMACTION`,`NUMOBJECTIF`),
   KEY `EST_ASSOCIE_FK` (`NUMACTION`),
   KEY `EST_ASSOCIE2_FK` (`NUMOBJECTIF`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)  ;
 
 -- --------------------------------------------------------
 
@@ -127,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `fixe` (
   PRIMARY KEY (`NUMMISSION`,`NUMOBJECTIF`),
   KEY `FIXE_FK` (`NUMMISSION`),
   KEY `FIXE2_FK` (`NUMOBJECTIF`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- --------------------------------------------------------
 
@@ -142,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `indicateur` (
   `POIDS` int(11) DEFAULT NULL,
   PRIMARY KEY (`NUMINDIC`),
   KEY `EST_VALORISE_FK` (`NUMACTION`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+) ;
 
 --
 -- Contenu de la table `indicateur`
@@ -162,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `jeu` (
   `NUMJEU` int(11) NOT NULL AUTO_INCREMENT,
   `LIBELLEJEU` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMJEU`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+) ;
 
 --
 -- Contenu de la table `jeu`
@@ -184,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `mission` (
   `LIBMISSION` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMMISSION`),
   KEY `SE_COMPOSE_FK` (`NUMJEU`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+);
 
 -- --------------------------------------------------------
 
@@ -196,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `objectif` (
   `NUMOBJECTIF` int(11) NOT NULL AUTO_INCREMENT,
   `LIBOBECTIF` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMOBJECTIF`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+);
 
 -- --------------------------------------------------------
 
@@ -214,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `obtient` (
   KEY `OBTIENT_FK` (`NUMAPPRENANT`),
   KEY `OBTIENT3_FK` (`DATEJOUR`),
   KEY `OBTIENT3_FK2` (`NUMACTION`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Contenu de la table `obtient`
@@ -236,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `possede` (
   PRIMARY KEY (`NUMACTION`,`NUMREGLE`),
   KEY `POSSEDE_FK` (`NUMACTION`),
   KEY `POSSEDE2_FK` (`NUMREGLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)  ;
 
 -- --------------------------------------------------------
 
@@ -249,11 +221,12 @@ CREATE TABLE IF NOT EXISTS `regle` (
   `LIBREGLE` char(25) DEFAULT NULL,
   `SCOREMIN` int(11) DEFAULT NULL,
   PRIMARY KEY (`NUMREGLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
+);
 
 --
 -- Contraintes pour les tables exportées
 --
+
 
 --
 -- Contraintes pour la table `appartient`
@@ -302,7 +275,3 @@ ALTER TABLE `obtient`
 ALTER TABLE `possede`
   ADD CONSTRAINT `FK_POSSEDE_POSSEDE2_REGLE` FOREIGN KEY (`NUMREGLE`) REFERENCES `regle` (`NUMREGLE`),
   ADD CONSTRAINT `FK_POSSEDE_POSSEDE_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
