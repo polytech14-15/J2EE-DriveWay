@@ -11,9 +11,6 @@
         <property name="libaction" type="string">
             <column name="LIBACTION" length="25" />
         </property>
-        <property name="scoremin" type="java.lang.Integer">
-            <column name="SCOREMIN" />
-        </property>
         <set name="indicateurs" table="indicateur" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="NUMACTION" not-null="true" />

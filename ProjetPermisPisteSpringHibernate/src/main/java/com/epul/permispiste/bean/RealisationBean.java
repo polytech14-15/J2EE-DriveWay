@@ -27,7 +27,7 @@ public class RealisationBean implements Serializable {
 		super();
 		this.numaction = o.getAction().getNumaction();
 		this.libaction = o.getAction().getLibaction();
-		this.scoremin = o.getAction().getScoremin();
+		this.scoremin = o.getValeurdebut();
 		this.date = o.getCalendrier().getDatejour();
 	}
 

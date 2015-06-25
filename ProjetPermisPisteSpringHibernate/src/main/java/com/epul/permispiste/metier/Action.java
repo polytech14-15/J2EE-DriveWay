@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -31,7 +29,6 @@ public class Action implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private int numaction;
 	private String libaction;
-	private Integer scoremin;
 	private List<Indicateur> indicateurs = new ArrayList<Indicateur>();
 	private List<Jeu> jeux = new ArrayList<Jeu>();
 	private List<Objectif> objectifs = new ArrayList<Objectif>();
@@ -46,12 +43,11 @@ public class Action implements java.io.Serializable {
 		this.numaction = numaction;
 	}
 
-	public Action(int numaction, String libaction, Integer scoremin,
+	public Action(int numaction, String libaction,
 			List<Indicateur> indicateurs, List<Jeu> jeux,
 			List<Objectif> objectifs, List<Obtient> obtients, List<Regle> regles) {
 		this.numaction = numaction;
 		this.libaction = libaction;
-		this.scoremin = scoremin;
 		this.indicateurs = indicateurs;
 		this.jeux = jeux;
 		this.objectifs = objectifs;
@@ -76,15 +72,6 @@ public class Action implements java.io.Serializable {
 
 	public void setLibaction(String libaction) {
 		this.libaction = libaction;
-	}
-
-	@Column(name = "SCOREMIN")
-	public Integer getScoremin() {
-		return this.scoremin;
-	}
-
-	public void setScoremin(Integer scoremin) {
-		this.scoremin = scoremin;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "action")
