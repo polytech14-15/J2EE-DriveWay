@@ -251,6 +251,8 @@ public class HibernateClient {
 //			Query query = session.createQuery("DELETE FROM Apprenant where numapprenant = "+ numApprenant);
 //			int delete = query.executeUpdate();
 			Apprenant a = (Apprenant) session.get(Apprenant.class, numApprenant);
+			System.out.println(numApprenant);
+			System.out.println(a.getNomapprenant());
 			session.delete(a);
 		} catch (Exception ex) {
 			System.out.println("Erreur ServiceHiber : " + ex.getMessage());

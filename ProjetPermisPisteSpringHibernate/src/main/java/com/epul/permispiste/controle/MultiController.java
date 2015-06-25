@@ -203,7 +203,7 @@ public class MultiController extends MultiActionController {
 		HibernateClient unGestClient = new HibernateClient();
 			try {
 				System.out.println("lala");
-				unGestClient.supprimerApprenant(new Integer(request.getParameter("id")));
+				unGestClient.supprimerApprenant(new Integer(request.getParameter("idSuppr")));
 			} catch (Exception e) {
 				request.setAttribute("MesErreurs", e.getMessage());
 				request.setAttribute("messageDanger", "Erreur lors de la suppression ..." + e.getMessage());
