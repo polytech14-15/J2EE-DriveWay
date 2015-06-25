@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.epul.permispiste.bean.RealisationBean;
 import com.epul.permispiste.bean.RealisationsBean;
+import com.epul.permispiste.bean.ScoresBean;
 import com.epul.permispiste.dao.HibernateClient;
 import com.epul.permispiste.metier.Action;
 import com.epul.permispiste.metier.Apprenant;
@@ -280,5 +281,34 @@ public class MultiController extends MultiActionController {
 		// e.printStackTrace();
 		// }
 		return actions;
+	}
+
+	/**
+	 * Affichage de l'apprenant
+	 */
+	@RequestMapping(value = "genererScore.htm")
+	public @ResponseBody int genererScore(HttpServletRequest request,
+			@RequestParam String scores) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		ScoresBean scores2 = mapper.readValue(scores, ScoresBean.class);
+
+		Apprenant apprenant = null;
+		List<RealisationBean> realisationsList = new ArrayList<RealisationBean>();
+		HibernateClient unGestClient = new HibernateClient();
+
+		RealisationsBean actions = new RealisationsBean(apprenant,
+				realisationsList);
+
+		// try {
+		// apprenantjson = mapper.writeValueAsString(apprenant);
+		// System.out.println(apprenantjson);
+		// } catch (JsonGenerationException e) {
+		// e.printStackTrace();
+		// } catch (JsonMappingException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		return 0;
 	}
 }
