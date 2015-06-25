@@ -107,7 +107,7 @@
 								
 						<td><button class="btn btn-primary modifierApprenant" data-toggle="modal" data-target="#modifierModal" data-numero="${apprenant.numapprenant}" data-nom="${apprenant.nomapprenant}" data-prenom="${apprenant.prenomapprenant}">Modifier</button>
 				       		<p></p>
-				       		<form method="post" action="supprimerApprenant" onsubmit="">
+				       		<form method="post" action="supprimerApprenant.htm" onsubmit="">
 										<input type="hidden" name="id" value="${apprenant.numapprenant}" id="id"/>
 									  	<button class="btn btn-secondary" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet apprenant ?');">Supprimer</button>
 									  </form></td>

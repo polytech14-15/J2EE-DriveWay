@@ -192,6 +192,28 @@ public class MultiController extends MultiActionController {
 //		destinationPage = "redirect:/afficherLesApprenants.htm";
 //		return new ModelAndView(destinationPage);
 	}
+	
+	/**
+	 * Suppression d'un apprenant
+	 */
+	@RequestMapping(value = "supprimerApprenant.htm")
+	public ModelAndView supprimerApprenant(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+//		String destinationPage;
+		HibernateClient unGestClient = new HibernateClient();
+			try {
+				unGestClient.supprimerApprenant(new Integer(request.getParameter("id")));
+			} catch (Exception e) {
+				request.setAttribute("MesErreurs", e.getMessage());
+				request.setAttribute("messageDanger", "Erreur lors de la suppression ..." + e.getMessage());
+			}
+			request.setAttribute("messageSuccess", "Apprenant supprimé avec succès !");
+
+			return afficherLesApprenants(request, response);
+//		destinationPage = "/afficherLesApprenants";
+//		destinationPage = "redirect:/afficherLesApprenants.htm";
+//		return new ModelAndView(destinationPage);
+	}
 
 	/**
 	 * Affichage des apprenants

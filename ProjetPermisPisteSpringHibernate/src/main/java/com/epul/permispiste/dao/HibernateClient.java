@@ -244,5 +244,16 @@ public class HibernateClient {
 			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
 		}
 	}
+	
+	public void supprimerApprenant(int numApprenant) throws HibernateException, ServiceHibernateException {
+		try {
+			session = ServiceHibernate.currentSession();
+			Query query = session.createQuery("DELETE FROM Apprenant where numapprenant = "+ numApprenant);
+			int delete = query.executeUpdate();
+		} catch (Exception ex) {
+			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+	}
 
 }
