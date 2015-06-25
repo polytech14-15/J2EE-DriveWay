@@ -43,31 +43,35 @@
 		<div class="modal-content">
 			<div class="modal-header">Informations</div>
 			<div class="modal-body">
-				<h5>Nom : {{apprenant.nomapprenant}}</h5>
-				<h5>Prénom : {{apprenant.prenomapprenant}}</h5>
+				<h5>Nom : {{apprenant.nom}}</h5>
+				<h5>Prénom : {{apprenant.prenom}}</h5>
 
-				<h3>Liste des scores</h3>
-				<div class="col-md-6">
+				<h3>Liste des réalisations</h3>
+					{{#if apprenant.actions}}
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>Action</th>
-								<th>Score début</th>
-								<th>Score fin</th>
+								<th>Numéro Action</th>
+								<th>Libellé Action</th>
+								<th>Score obtenu</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody>
-							{{#each apprenant.obtients}}
+							{{#each apprenant.actions}}
 									<tr>
-										<td>aaa</td>
-										<td>{{this.valeurdebut}}</td>
-										<td>{{this.valeurfin}}</td>										
+										<td>{{this.numaction}}</td>
+										<td>{{this.libaction}}</td>
+										<td>{{this.scoremin}}</td>	
+										<td>{{this.date}}</td>									
 									</tr>
 								{{/each}}
 						</tbody>
 					</table>
+					{{else}}
+						{{apprenant.prenom}} {{apprenant.nom}} n'a effectué aucune action ...
+					{{/if}}
 
-				</div>
 			</div>
 
 		</div>
@@ -76,10 +80,13 @@
 </script>
 
 <div id="content-placeholder"></div>
-<h3>Liste des apprenants</h3>
-<div class="col-md-6">
-	<table class="table table-striped">
-		<thead>
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>Liste des apprenants</h3>
+			<table class="table table-striped">
+				<thead>
 			<tr>
 				<th>Numéro</th>
 				<th>Nom</th>
@@ -95,7 +102,6 @@
 						<td>${apprenant.numapprenant}</td>
 						<td>${apprenant.nomapprenant}</td>
 						<td>${apprenant.prenomapprenant}</td>
-
 						<td><button type="button" class="btn btn-default"
 								onclick="getActions('${apprenant.numapprenant}')">Actions</button></td>
 								
@@ -105,12 +111,14 @@
 										<input type="hidden" name="id" value="${apprenant.numapprenant}" id="id"/>
 									  	<button class="btn btn-secondary" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet apprenant ?');">Supprimer</button>
 									  </form></td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
 
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->

@@ -1,6 +1,7 @@
 package com.epul.permispiste.controle;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,10 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.epul.permispiste.bean.RealisationBean;
+import com.epul.permispiste.bean.RealisationsBean;
 import com.epul.permispiste.dao.HibernateClient;
 import com.epul.permispiste.metier.Action;
 import com.epul.permispiste.metier.Apprenant;
 import com.epul.permispiste.metier.Jeu;
+import com.epul.permispiste.metier.Obtient;
 
 /**
  * Handles requests for the application home page.
@@ -51,21 +55,22 @@ public class MultiController extends MultiActionController {
 	}
 
 	/**
-	 * Affichage de tous les jouets
+	 * Affichage d'un jeu
 	 */
-	@RequestMapping(value = "afficherJeux.htm")
-	public ModelAndView afficherLesJeux(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "afficherJeu.htm", method = RequestMethod.GET)
+	public ModelAndView afficherJeu(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam Integer id)
+			throws Exception {
 		String destinationPage;
 
 		HibernateClient unGestClient = new HibernateClient();
 		try {
-			List<Jeu> mesJeux = unGestClient.getTouslesJeux();
-			request.setAttribute("mesJeux", mesJeux);
+			Jeu jeu = unGestClient.getUnJeu(id);
+			request.setAttribute("jeu", jeu);
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
-		destinationPage = "/ListeJeux";
+		destinationPage = "/AfficherJeu";
 		return new ModelAndView(destinationPage);
 	}
 
@@ -88,6 +93,27 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
 		}
 		destinationPage = "/AfficherAction";
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Affichage dun jeu
+	 */
+	@RequestMapping(value = "afficherLesJeux.htm")
+	public ModelAndView afficherLesJeux(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			if (jeux != null) {
+				request.setAttribute("jeux", jeux);
+			}
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
+		}
+		destinationPage = "/AfficherLesJeux";
 		return new ModelAndView(destinationPage);
 	}
 
@@ -191,18 +217,25 @@ public class MultiController extends MultiActionController {
 	 * Affichage de l'apprenant
 	 */
 	@RequestMapping(value = "afficherApprenant.htm", method = RequestMethod.GET)
-	public @ResponseBody Apprenant afficherApprenant(
+	public @ResponseBody RealisationsBean afficherApprenant(
 			HttpServletRequest request, @RequestParam Integer numApprenant)
 			throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String apprenantjson = "";
 		Apprenant apprenant = null;
+		List<RealisationBean> realisationsList = new ArrayList<RealisationBean>();
 		HibernateClient unGestClient = new HibernateClient();
 		try {
 			apprenant = unGestClient.getUnApprenant(numApprenant);
+			for (Obtient o : apprenant.getObtients()) {
+				realisationsList.add(new RealisationBean(o));
+			}
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
+
+		RealisationsBean actions = new RealisationsBean(apprenant,
+				realisationsList);
 
 		// try {
 		// apprenantjson = mapper.writeValueAsString(apprenant);
@@ -214,6 +247,6 @@ public class MultiController extends MultiActionController {
 		// } catch (IOException e) {
 		// e.printStackTrace();
 		// }
-		return apprenant;
+		return actions;
 	}
 }
