@@ -79,7 +79,7 @@
 					aria-expanded="false"> Jeux<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="afficherJeu.htm">Afficher les jeux</a></li>
+						<li><a href="afficherLesJeux.htm">Afficher les jeux</a></li>
 					</ul></li>
 
 				<li class="dropdown" id="Apprenant"><a href="#"

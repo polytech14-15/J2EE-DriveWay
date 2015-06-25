@@ -1,46 +1,21 @@
 <%@ include file="head.jsp"%>
-  
-<script>
-	$(function() {
-		$(".column").sortable({
-			connectWith : ".column",
-			handle : ".portlet-header",
-			cancel : ".portlet-toggle",
-			placeholder : "portlet-placeholder ui-corner-all"
-		});
 
-		$(".portlet")
-				.addClass(
-						"ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-				.find(".portlet-header")
-				.addClass("ui-widget-header ui-corner-all")
-				.prepend(
-						"<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-		$(".portlet-toggle").click(function() {
-			var icon = $(this);
-			icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-			icon.closest(".portlet").find(".portlet-content").toggle();
-		});
-	});
-</script>
 
 
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<h3>Liste des jeux</h3>
-
-
-
-			<c:forEach items="${jeux}" var="jeux">
-			<div class="column">
-				<div class="portlet">
-					<div class="portlet-header">${jeux.numjeu}</div>
-					<div class="portlet-content">${jeux.libellejeu}</div>
-				</div>
-				</div>
+			<h3>C'est parti !!</h3>
+			<c:forEach items="${jeu.actions}" var="action">
+			<p>
+			Question : ${action.libaction}<br />
+			Reponse(s) possible(s) : <br />
+			<c:forEach items="${action.indicateurs}" var="indicateur">
+			<INPUT type="checkbox" name="${action.numaction} - ${indicateur.numindic}" value="${indicateur.poids}"> ${indicateur.libindic}
+				<br />
+				</c:forEach>
 			</c:forEach>
+			</p>
 		</div>
 	</div>
 </div>

@@ -55,21 +55,22 @@ public class MultiController extends MultiActionController {
 	}
 
 	/**
-	 * Affichage de tous les jouets
+	 * Affichage d'un jeu
 	 */
-	@RequestMapping(value = "afficherJeux.htm")
-	public ModelAndView afficherLesJeux(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "afficherJeu.htm", method = RequestMethod.GET)
+	public ModelAndView afficherJeu(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam Integer id)
+			throws Exception {
 		String destinationPage;
 
 		HibernateClient unGestClient = new HibernateClient();
 		try {
-			List<Jeu> mesJeux = unGestClient.getTouslesJeux();
-			request.setAttribute("mesJeux", mesJeux);
+			Jeu jeu = unGestClient.getUnJeu(id);
+			request.setAttribute("jeu", jeu);
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
-		destinationPage = "/ListeJeux";
+		destinationPage = "/AfficherJeu";
 		return new ModelAndView(destinationPage);
 	}
 
@@ -98,8 +99,8 @@ public class MultiController extends MultiActionController {
 	/**
 	 * Affichage dun jeu
 	 */
-	@RequestMapping(value = "afficherJeu.htm")
-	public ModelAndView afficherJeu(HttpServletRequest request,
+	@RequestMapping(value = "afficherLesJeux.htm")
+	public ModelAndView afficherLesJeux(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String destinationPage;
 
@@ -112,7 +113,7 @@ public class MultiController extends MultiActionController {
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
 		}
-		destinationPage = "/AfficherJeu";
+		destinationPage = "/AfficherLesJeux";
 		return new ModelAndView(destinationPage);
 	}
 
