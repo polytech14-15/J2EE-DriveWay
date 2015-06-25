@@ -25,6 +25,15 @@
 		});
 		console.log("salut");
 	}
+
+	$(document).on("click", ".modifierApprenant", function () {
+	    var num = $(this).data('numero');
+	    var nom = $(this).data('nom');
+	    var prenom = $(this).data('prenom');
+	    $(".modal-body #id").val( num );
+	    $(".modal-body #nom").val( nom );
+	    $(".modal-body #prenom").val( prenom );
+	});
 </script>
 
 <!-- Modal HTML -->
@@ -76,6 +85,7 @@
 				<th>Nom</th>
 				<th>Prénom</th>
 				<th>Actions</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -85,9 +95,16 @@
 						<td>${apprenant.numapprenant}</td>
 						<td>${apprenant.nomapprenant}</td>
 						<td>${apprenant.prenomapprenant}</td>
+
 						<td><button type="button" class="btn btn-default"
 								onclick="getActions('${apprenant.numapprenant}')">Actions</button></td>
-
+								
+						<td><button class="btn btn-primary modifierApprenant" data-toggle="modal" data-target="#modifierModal" data-numero="${apprenant.numapprenant}" data-nom="${apprenant.nomapprenant}" data-prenom="${apprenant.prenomapprenant}">Modifier</button>
+				       		<p></p>
+				       		<form method="post" action="supprimerApprenant" onsubmit="">
+										<input type="hidden" name="id" value="${apprenant.numapprenant}" id="id"/>
+									  	<button class="btn btn-secondary" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet apprenant ?');">Supprimer</button>
+									  </form></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -95,6 +112,34 @@
 	</table>
 
 </div>
+
+<!-- Modal -->
+				<div class="modal fade" id="modifierModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel">Modifier l'Apprenant</h4>
+							</div>
+							<div class="modal-body">
+								<form method="post" action="modifierApprenant.htm">	 
+								   <fieldset>
+								   		<input type="hidden" value="modifier" name="type"></input>
+								      	<p><label for="id">Numéro : </label><input id="id" name="id" type="text"  placeholder="" readonly></input></p>
+								      	<p><label for="nom">Nom : </label><input id="nom" name="nom" type="text"></input></p>
+								      	<p><label for="prenom">Prénom : </label><input id="prenom" name="prenom" type="text"></input></p>
+								   </fieldset>
+								 <p><input type="submit" value="Modifier" />
+								</form>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 
 </body>
 </html>

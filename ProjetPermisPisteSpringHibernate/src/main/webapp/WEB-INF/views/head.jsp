@@ -67,7 +67,6 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherAction.htm">Afficher une action</a></li>
 						<li><a href="listeActions.htm">Afficher toutes les actions</a></li>
-						<li><a href="afficherLesApprenants.htm">Afficher les apprenants</a></li>
 					</ul>
 					</li>
 					
@@ -76,8 +75,8 @@
 					Apprenants<span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-<!-- 						<li><a href="listeApprenants.htm">Afficher les apprenants</a></li> -->
 						<li><a href="ajoutApprenant.htm">Ajouter un apprenant</a></li>
+						<li><a href="afficherLesApprenants.htm">Afficher les apprenants</a></li>
 					</ul>
 					</li>
 					
