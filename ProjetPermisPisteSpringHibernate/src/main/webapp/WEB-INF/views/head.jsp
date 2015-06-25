@@ -62,19 +62,18 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="dropdown" id="Action"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown" role="button"
-					aria-expanded="false"> Actions<span class="caret"></span>
-				</a>
+				<li class="dropdown" id="Action">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Actions<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherAction.htm">Afficher une action</a></li>
 						<li><a href="listeActions.htm">Afficher toutes les actions</a></li>
 					</ul>
-					</li>
+				</li>
 					
-					<li class="dropdown" id="Apprenant">
+				<li class="dropdown" id="Apprenant">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					Apprenants<span class="caret"></span>
+					Apprenants<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
 						<li><a href="listeActions.htm">Afficher toutes les
 								actions</a></li>
 						<li><a href="afficherLesApprenants.htm">Afficher les
@@ -87,18 +86,8 @@
 				</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherLesJeux.htm">Afficher les jeux</a></li>
-					</ul></li>
-
-				<li class="dropdown" id="Apprenant"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown" role="button"
-					aria-expanded="false"> Apprenants<span class="caret"></span>
-				</a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="ajoutApprenant.htm">Ajouter un apprenant</a></li>
-						<li><a href="afficherLesApprenants.htm">Afficher les apprenants</a></li>
-					</ul></li>
-
-			</ul>
+					</ul>
+					</li>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
@@ -148,6 +137,12 @@ $( document ).ready(function() {
 	// met l'onglet courrant de la barre head en gras
     if(window.location.pathname.indexOf("Action") >= 0){
         $('.dropdown#Action > a').attr('style', "font-weight: bold; font-size: 1.3em;"); 
+        }
+    if(window.location.pathname.indexOf("Apprenant") >= 0){
+        $('.dropdown#Apprenant > a').attr('style', "font-weight: bold; font-size: 1.3em;"); 
+        }
+    if(window.location.pathname.indexOf("Jeu") >= 0){
+        $('.dropdown#Jeu > a').attr('style', "font-weight: bold; font-size: 1.3em;"); 
         }
 });
 </script>
