@@ -71,33 +71,38 @@
 </script>
 
 <div id="content-placeholder"></div>
-<h3>Liste des apprenants</h3>
-<div class="col-md-6">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Numéro</th>
-				<th>Nom</th>
-				<th>Prénom</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:if test="${fn:length( apprenants) > 0}">
-				<c:forEach items="${apprenants}" var="apprenant">
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>Liste des apprenants</h3>
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td>${apprenant.numapprenant}</td>
-						<td>${apprenant.nomapprenant}</td>
-						<td>${apprenant.prenomapprenant}</td>
-						<td><button type="button" class="btn btn-default"
-								onclick="getActions('${apprenant.numapprenant}')">Actions</button></td>
-
+						<th>Numéro</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Actions</th>
 					</tr>
-				</c:forEach>
-			</c:if>
-		</tbody>
-	</table>
+				</thead>
+				<tbody>
+					<c:if test="${fn:length( apprenants) > 0}">
+						<c:forEach items="${apprenants}" var="apprenant">
+							<tr>
+								<td>${apprenant.numapprenant}</td>
+								<td>${apprenant.nomapprenant}</td>
+								<td>${apprenant.prenomapprenant}</td>
+								<td><button type="button" class="btn btn-default"
+										onclick="getActions('${apprenant.numapprenant}')">Actions</button></td>
 
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
 </div>
 
 </body>
