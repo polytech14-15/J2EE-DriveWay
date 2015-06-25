@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="metier.Regle" table="regle" catalog="permispiste" optimistic-lock="version">
+    <class name="com.epul.permispiste.metier.Regle" table="regle" catalog="permispiste" optimistic-lock="version">
         <id name="numregle" type="int">
             <column name="NUMREGLE" />
             <generator class="assigned" />
@@ -18,7 +18,7 @@
             <key>
                 <column name="NUMREGLE" not-null="true" />
             </key>
-            <many-to-many entity-name="metier.Action">
+            <many-to-many entity-name="com.epul.permispiste.metier.Action">
                 <column name="NUMACTION" not-null="true" />
             </many-to-many>
         </set>

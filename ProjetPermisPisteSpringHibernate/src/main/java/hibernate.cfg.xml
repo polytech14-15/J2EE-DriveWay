@@ -11,14 +11,14 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
-        <mapping class="metier.Objectif" />
-        <mapping class="metier.Action" />
-        <mapping class="metier.Mission" />
-        <mapping class="metier.Jeu" />
-        <mapping class="metier.Indicateur" />
-        <mapping class="metier.Calendrier" />
-        <mapping class="metier.Apprenant" />
-        <mapping class="metier.Regle" />
-        <mapping class="metier.Obtient" />
+        <mapping class="com.epul.permispiste.metier.Objectif" />
+        <mapping class="com.epul.permispiste.metier.Action" />
+        <mapping class="com.epul.permispiste.metier.Mission" />
+        <mapping class="com.epul.permispiste.metier.Jeu" />
+        <mapping class="com.epul.permispiste.metier.Indicateur" />
+        <mapping class="com.epul.permispiste.metier.Calendrier" />
+        <mapping class="com.epul.permispiste.metier.Apprenant" />
+        <mapping class="com.epul.permispiste.metier.Regle" />
+        <mapping class="com.epul.permispiste.metier.Obtient" />
     </session-factory>
 </hibernate-configuration>

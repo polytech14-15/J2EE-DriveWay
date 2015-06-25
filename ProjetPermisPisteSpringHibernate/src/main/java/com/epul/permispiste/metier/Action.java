@@ -1,11 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,24 +22,19 @@ import javax.persistence.Table;
 @Table(name = "action", catalog = "permispiste")
 public class Action implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numaction;
-	private Action action;
 	private String libaction;
 	private Integer scoremin;
-	
-	private List<Indicateur> mesIndicateurs = new ArrayList<Indicateur>();
-	
-	
-	private List<Jeu> mesJeux = new ArrayList<Jeu>();
-	
-	private List<Action> mesActions = new ArrayList<Action>();
-;
-	private List<Objectif> mesObjectifs = new ArrayList<Objectif>();
+	private List<Indicateur> indicateurs = new ArrayList<Indicateur>();
+	private List<Jeu> jeux = new ArrayList<Jeu>();
+	private List<Objectif> objectifs = new ArrayList<Objectif>();
+	private List<Obtient> obtients = new ArrayList<Obtient>();
+	private List<Regle> regles = new ArrayList<Regle>();
 
-	private List<Obtient> mesResultats = new ArrayList<Obtient>();
-	
-	private List<Regle> mesRegles = new ArrayList<Regle>();
-	
 	public Action() {
 	}
 
@@ -50,19 +42,17 @@ public class Action implements java.io.Serializable {
 		this.numaction = numaction;
 	}
 
-	public Action(int numaction, Action action, String libaction,
-			Integer scoremin, List<Indicateur>  indicateurs, List<Jeu> jeux, List<Action> actions,
+	public Action(int numaction, String libaction, Integer scoremin,
+			List<Indicateur> indicateurs, List<Jeu> jeux,
 			List<Objectif> objectifs, List<Obtient> obtients, List<Regle> regles) {
 		this.numaction = numaction;
-		this.action = action;
 		this.libaction = libaction;
 		this.scoremin = scoremin;
-		this.mesIndicateurs = indicateurs;
-		this.mesJeux = jeux;
-		this.mesActions = actions;
-		this.mesObjectifs = objectifs;
-		this.mesResultats = obtients;
-		this.mesRegles = regles;
+		this.indicateurs = indicateurs;
+		this.jeux = jeux;
+		this.objectifs = objectifs;
+		this.obtients = obtients;
+		this.regles = regles;
 	}
 
 	@Id
@@ -73,16 +63,6 @@ public class Action implements java.io.Serializable {
 
 	public void setNumaction(int numaction) {
 		this.numaction = numaction;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ACT_NUMACTION")
-	public Action getAction() {
-		return this.action;
-	}
-
-	public void setAction(Action action) {
-		this.action = action;
 	}
 
 	@Column(name = "LIBACTION", length = 25)
@@ -105,58 +85,49 @@ public class Action implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "action")
 	public List<Indicateur> getIndicateurs() {
-		return this.mesIndicateurs;
+		return this.indicateurs;
 	}
 
 	public void setIndicateurs(List<Indicateur> indicateurs) {
-		this.mesIndicateurs = indicateurs;
+		this.indicateurs = indicateurs;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "actions")
 	public List<Jeu> getJeus() {
-		return this.mesJeux;
+		return this.jeux;
 	}
 
 	public void setJeus(List<Jeu> jeux) {
-		this.mesJeux = jeux;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "action")
-	public List<Action> getActions() {
-		return this.mesActions;
-	}
-
-	public void setActions(List<Action> actions) {
-		this.mesActions = actions;
+		this.jeux = jeux;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "est_associe", catalog = "permispiste", joinColumns = { @JoinColumn(name = "NUMACTION", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NUMOBJECTIF", nullable = false, updatable = false) })
 	public List<Objectif> getObjectifs() {
-		return this.mesObjectifs;
+		return this.objectifs;
 	}
 
 	public void setObjectifs(List<Objectif> objectifs) {
-		this.mesObjectifs = objectifs;
+		this.objectifs = objectifs;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "action")
 	public List<Obtient> getObtients() {
-		return this.mesResultats;
+		return this.obtients;
 	}
 
 	public void setObtients(List<Obtient> obtients) {
-		this.mesResultats = obtients;
+		this.obtients = obtients;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "possede", catalog = "permispiste", joinColumns = { @JoinColumn(name = "NUMACTION", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NUMREGLE", nullable = false, updatable = false) })
 	public List<Regle> getRegles() {
-		return this.mesRegles;
+		return this.regles;
 	}
 
 	public void setRegles(List<Regle> regles) {
-		this.mesRegles = regles;
+		this.regles = regles;
 	}
 
 }

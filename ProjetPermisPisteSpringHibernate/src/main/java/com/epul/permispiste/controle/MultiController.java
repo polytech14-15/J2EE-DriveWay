@@ -1,7 +1,6 @@
 package com.epul.permispiste.controle;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -9,21 +8,22 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import metier.Action;
-import metier.Apprenant;
-import metier.Jeu;
-import metier.Obtient;
-
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.epul.permispiste.dao.HibernateClient;
+import com.epul.permispiste.metier.Action;
+import com.epul.permispiste.metier.Apprenant;
+import com.epul.permispiste.metier.Jeu;
 
 /**
  * Handles requests for the application home page.
@@ -128,12 +128,7 @@ public class MultiController extends MultiActionController {
 		destinationPage = "/ListeActions";
 		return new ModelAndView(destinationPage);
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Ajout d'un apprenant
 	 */
@@ -143,17 +138,18 @@ public class MultiController extends MultiActionController {
 		String destinationPage;
 		HibernateClient unGestClient = new HibernateClient();
 
-		String att = (String) request.getParameter("nom");
-		if (att!=null && !att.equals("")){
+		String att = request.getParameter("nom");
+		if (att != null && !att.equals("")) {
 			// on a rempli le formulaire, on va ajouter l'apprenant
 			Apprenant a = new Apprenant();
-			a.setNomapprenant((String)request.getParameter("nom"));
-			a.setPrenomapprenant((String)request.getParameter("prenom"));
+			a.setNomapprenant(request.getParameter("nom"));
+			a.setPrenomapprenant(request.getParameter("prenom"));
 			try {
 				unGestClient.sauverApprenant(a);
 			} catch (Exception e) {
 				request.setAttribute("MesErreurs", e.getMessage());
-				request.setAttribute("messageDanger", "Erreur lors de l'enregistrement ...");
+				request.setAttribute("messageDanger",
+						"Erreur lors de l'enregistrement ...");
 			}
 			request.setAttribute("messageSuccess", "Apprenant enregistré !");
 		} else {
@@ -164,36 +160,54 @@ public class MultiController extends MultiActionController {
 		destinationPage = "/ajoutApprenant";
 		return new ModelAndView(destinationPage);
 	}
-	
+
 	/**
-	 * Affichage de tous les apprenants
+	 * Affichage des apprenants
 	 */
-	@RequestMapping(value = "listeApprenants.htm")
-	public ModelAndView listeApprenants(HttpServletRequest request,
+	@RequestMapping(value = "afficherLesApprenants.htm")
+	public ModelAndView afficherLesApprenants(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO
 		String destinationPage;
-//		HibernateClient unGestClient = new HibernateClient();
-//
-//		String att = (String) request.getParameter("nom");
-//		if (att!=null && !att.equals("")){
-//			// on a rempli le formulaire, on va ajouter l'apprenant
-//			Apprenant a = new Apprenant();
-//			a.setNomapprenant((String)request.getParameter("nom"));
-//			a.setPrenomapprenant((String)request.getParameter("prenom"));
-//			try {
-//				unGestClient.sauverApprenant(a);
-//			} catch (Exception e) {
-//				request.setAttribute("MesErreurs", e.getMessage());
-//				request.setAttribute("messageDanger", "Erreur lors de l'enregistrement ...");
-//			}
-//			request.setAttribute("messageSuccess", "Apprenant enregistré !");
-//		} else {
-//			// on n'a pas encore rempli le formulaire
-//			request.setAttribute("apprenant", new Apprenant());
-//		}
-//
-		destinationPage = "/listeApprenants";
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			// TODO
+			List<Apprenant> apprenants = unGestClient.getTouslesApprenant();
+			request.setAttribute("apprenants", apprenants);
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+		destinationPage = "/AfficherLesApprenants";
 		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Affichage de l'apprenant
+	 */
+	@RequestMapping(value = "afficherApprenant.htm", method = RequestMethod.GET)
+	public @ResponseBody Apprenant afficherApprenant(
+			HttpServletRequest request, @RequestParam Integer numApprenant)
+			throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		String apprenantjson = "";
+		Apprenant apprenant = null;
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			apprenant = unGestClient.getUnApprenant(numApprenant);
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		// try {
+		// apprenantjson = mapper.writeValueAsString(apprenant);
+		// System.out.println(apprenantjson);
+		// } catch (JsonGenerationException e) {
+		// e.printStackTrace();
+		// } catch (JsonMappingException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		return apprenant;
 	}
 }

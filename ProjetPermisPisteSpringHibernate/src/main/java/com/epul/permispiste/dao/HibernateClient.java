@@ -3,21 +3,20 @@ package com.epul.permispiste.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import metier.Action;
-import metier.Apprenant;
-import metier.Calendrier;
-import metier.Indicateur;
-import metier.Jeu;
-import metier.Mission;
-import metier.Objectif;
-import metier.Regle;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.epul.permispiste.gestiondeserreurs.MonException;
 import com.epul.permispiste.gestiondeserreurs.ServiceHibernateException;
+import com.epul.permispiste.metier.Action;
+import com.epul.permispiste.metier.Apprenant;
+import com.epul.permispiste.metier.Calendrier;
+import com.epul.permispiste.metier.Indicateur;
+import com.epul.permispiste.metier.Jeu;
+import com.epul.permispiste.metier.Mission;
+import com.epul.permispiste.metier.Objectif;
+import com.epul.permispiste.metier.Regle;
 import com.epul.permispiste.service.ServiceHibernate;
 
 public class HibernateClient {
@@ -230,13 +229,14 @@ public class HibernateClient {
 		}
 		return unJeu;
 	}
-	
-	public void sauverApprenant(Apprenant apprenant) throws ServiceHibernateException, Exception {
+
+	public void sauverApprenant(Apprenant apprenant)
+			throws ServiceHibernateException, Exception {
 		try {
-				session = ServiceHibernate.currentSession();
-				session.beginTransaction();
-				session.saveOrUpdate(apprenant);
-				session.getTransaction().commit();
+			session = ServiceHibernate.currentSession();
+			session.beginTransaction();
+			session.saveOrUpdate(apprenant);
+			session.getTransaction().commit();
 		} catch (ServiceHibernateException ex) {
 			throw new ServiceHibernateException("Erreur de service Hibernate: "
 					+ ex.getMessage(), ex);

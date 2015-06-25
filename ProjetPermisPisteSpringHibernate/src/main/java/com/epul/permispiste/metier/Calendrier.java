@@ -1,12 +1,10 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +22,12 @@ import javax.persistence.TemporalType;
 @Table(name = "calendrier", catalog = "permispiste")
 public class Calendrier implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date datejour;
-	List<Obtient> mesResultats = new ArrayList<Obtient>();
+	private List<Obtient> obtients = new ArrayList<Obtient>();
 
 	public Calendrier() {
 	}
@@ -34,9 +36,9 @@ public class Calendrier implements java.io.Serializable {
 		this.datejour = datejour;
 	}
 
-	public Calendrier(Date datejour, List<Obtient>  obtients) {
+	public Calendrier(Date datejour, List<Obtient> obtients) {
 		this.datejour = datejour;
-		this.mesResultats = obtients;
+		this.obtients = obtients;
 	}
 
 	@Id
@@ -52,11 +54,11 @@ public class Calendrier implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calendrier")
 	public List<Obtient> getObtients() {
-		return this.mesResultats;
+		return this.obtients;
 	}
 
 	public void setObtients(List<Obtient> obtients) {
-		this.mesResultats = obtients;
+		this.obtients = obtients;
 	}
 
 }

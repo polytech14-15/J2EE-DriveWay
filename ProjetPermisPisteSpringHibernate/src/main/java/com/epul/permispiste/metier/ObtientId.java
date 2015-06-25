@@ -1,8 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -12,6 +13,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ObtientId implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numapprenant;
 	private Date datejour;
 	private int numaction;
@@ -52,6 +57,7 @@ public class ObtientId implements java.io.Serializable {
 		this.numaction = numaction;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -69,6 +75,7 @@ public class ObtientId implements java.io.Serializable {
 				&& (this.getNumaction() == castOther.getNumaction());
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

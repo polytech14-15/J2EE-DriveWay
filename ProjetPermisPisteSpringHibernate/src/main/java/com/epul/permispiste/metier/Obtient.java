@@ -1,6 +1,6 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "obtient", catalog = "permispiste")
 public class Obtient implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ObtientId id;
 	private Action action;
 	private Apprenant apprenant;

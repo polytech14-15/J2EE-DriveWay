@@ -1,11 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,11 +19,14 @@ import javax.persistence.Table;
 @Table(name = "objectif", catalog = "permispiste")
 public class Objectif implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numobjectif;
 	private String libobectif;
-	private List<Action> mesActions = new ArrayList<Action>();
-	private List<Mission> mesMissions = new ArrayList<Mission>();
-	
+	private List<Action> actions = new ArrayList<Action>();
+	private List<Mission> missions = new ArrayList<Mission>();
 
 	public Objectif() {
 	}
@@ -34,12 +35,12 @@ public class Objectif implements java.io.Serializable {
 		this.numobjectif = numobjectif;
 	}
 
-	public Objectif(int numobjectif, String libobectif, List<Action> mesA,
+	public Objectif(int numobjectif, String libobectif, List<Action> actions,
 			List<Mission> missions) {
 		this.numobjectif = numobjectif;
 		this.libobectif = libobectif;
-		this.mesActions = mesA;
-		this.mesMissions = missions;
+		this.actions = actions;
+		this.missions = missions;
 	}
 
 	@Id
@@ -63,20 +64,20 @@ public class Objectif implements java.io.Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "objectifs")
 	public List<Action> getActions() {
-		return this.mesActions;
+		return this.actions;
 	}
 
 	public void setActions(List<Action> actions) {
-		this.mesActions = actions;
+		this.actions = actions;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "objectifs")
 	public List<Mission> getMissions() {
-		return this.mesMissions;
+		return this.missions;
 	}
 
 	public void setMissions(List<Mission> missions) {
-		this.mesMissions = missions;
+		this.missions = missions;
 	}
 
 }

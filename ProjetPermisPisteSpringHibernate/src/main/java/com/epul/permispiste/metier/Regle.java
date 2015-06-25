@@ -1,8 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,10 +19,14 @@ import javax.persistence.Table;
 @Table(name = "regle", catalog = "permispiste")
 public class Regle implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numregle;
 	private String libregle;
 	private Integer scoremin;
-	private List<Action> mesActions = new ArrayList<Action>();
+	private List<Action> actions = new ArrayList<Action>();
 
 	public Regle() {
 	}
@@ -30,11 +35,12 @@ public class Regle implements java.io.Serializable {
 		this.numregle = numregle;
 	}
 
-	public Regle(int numregle, String libregle, Integer scoremin, List<Action>  actions) {
+	public Regle(int numregle, String libregle, Integer scoremin,
+			List<Action> actions) {
 		this.numregle = numregle;
 		this.libregle = libregle;
 		this.scoremin = scoremin;
-		this.mesActions = actions;
+		this.actions = actions;
 	}
 
 	@Id
@@ -66,12 +72,12 @@ public class Regle implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "regles")
-	public List<Action>  getActions() {
-		return this.mesActions;
+	public List<Action> getActions() {
+		return this.actions;
 	}
 
-	public void setActions(List<Action>  actions) {
-		this.mesActions = actions;
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
 	}
 
 }

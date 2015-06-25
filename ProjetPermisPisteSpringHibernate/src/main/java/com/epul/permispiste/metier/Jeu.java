@@ -1,11 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,12 +22,14 @@ import javax.persistence.Table;
 @Table(name = "jeu", catalog = "permispiste")
 public class Jeu implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numjeu;
 	private String libellejeu;
-	
-	private List<Action> mesActions = new ArrayList<Action>();
-	private List<Mission> mesMissions = new ArrayList<Mission>();
-	
+	private List<Mission> missions = new ArrayList<Mission>();
+	private List<Action> actions = new ArrayList<Action>();
 
 	public Jeu() {
 	}
@@ -38,11 +38,12 @@ public class Jeu implements java.io.Serializable {
 		this.numjeu = numjeu;
 	}
 
-	public Jeu(int numjeu, String libellejeu, List<Mission> missions, List<Action> actions) {
+	public Jeu(int numjeu, String libellejeu, List<Mission> missions,
+			List<Action> actions) {
 		this.numjeu = numjeu;
 		this.libellejeu = libellejeu;
-		this.mesMissions = missions;
-		this.mesActions = actions;
+		this.missions = missions;
+		this.actions = actions;
 	}
 
 	@Id
@@ -66,21 +67,21 @@ public class Jeu implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jeu")
 	public List<Mission> getMissions() {
-		return this.mesMissions;
+		return this.missions;
 	}
 
 	public void setMissions(List<Mission> missions) {
-		this.mesMissions = missions;
+		this.missions = missions;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "appartient", catalog = "permispiste", joinColumns = { @JoinColumn(name = "NUMJEU", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NUMACTION", nullable = false, updatable = false) })
 	public List<Action> getActions() {
-		return this.mesActions;
+		return this.actions;
 	}
 
 	public void setActions(List<Action> actions) {
-		this.mesActions = actions;
+		this.actions = actions;
 	}
 
 }

@@ -1,10 +1,9 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
-
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,10 +19,14 @@ import javax.persistence.Table;
 @Table(name = "apprenant", catalog = "permispiste")
 public class Apprenant implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numapprenant;
 	private String nomapprenant;
 	private String prenomapprenant;
-	List<Obtient> mesResultats = new ArrayList<Obtient>();
+	private List<Obtient> obtients = new ArrayList<Obtient>();
 
 	public Apprenant() {
 	}
@@ -37,7 +40,7 @@ public class Apprenant implements java.io.Serializable {
 		this.numapprenant = numapprenant;
 		this.nomapprenant = nomapprenant;
 		this.prenomapprenant = prenomapprenant;
-		this.mesResultats = obtients;
+		this.obtients = obtients;
 	}
 
 	@Id
@@ -70,11 +73,11 @@ public class Apprenant implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "apprenant")
 	public List<Obtient> getObtients() {
-		return this.mesResultats;
+		return this.obtients;
 	}
 
 	public void setObtients(List<Obtient> obtients) {
-		this.mesResultats = obtients;
+		this.obtients = obtients;
 	}
 
 }

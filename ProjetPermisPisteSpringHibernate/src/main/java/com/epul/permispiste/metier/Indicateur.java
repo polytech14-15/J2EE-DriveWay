@@ -1,6 +1,6 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,10 @@ import javax.persistence.Table;
 @Table(name = "indicateur", catalog = "permispiste")
 public class Indicateur implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numindic;
 	private Action action;
 	private String libindic;

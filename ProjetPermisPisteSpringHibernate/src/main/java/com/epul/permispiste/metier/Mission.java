@@ -1,9 +1,10 @@
-package metier;
+package com.epul.permispiste.metier;
 
-// Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1
+// Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1
 
-import java.util.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,10 +22,14 @@ import javax.persistence.Table;
 @Table(name = "mission", catalog = "permispiste")
 public class Mission implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int nummission;
 	private Jeu jeu;
 	private String libmission;
-	private List<Objectif> mesObjectifs = new ArrayList<Objectif>();;
+	private List<Objectif> objectifs = new ArrayList<Objectif>();
 
 	public Mission() {
 	}
@@ -34,11 +39,12 @@ public class Mission implements java.io.Serializable {
 		this.jeu = jeu;
 	}
 
-	public Mission(int nummission, Jeu jeu, String libmission, List<Objectif> objectifs) {
+	public Mission(int nummission, Jeu jeu, String libmission,
+			List<Objectif> objectifs) {
 		this.nummission = nummission;
 		this.jeu = jeu;
 		this.libmission = libmission;
-		this.mesObjectifs = objectifs;
+		this.objectifs = objectifs;
 	}
 
 	@Id
@@ -73,11 +79,11 @@ public class Mission implements java.io.Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "fixe", catalog = "permispiste", joinColumns = { @JoinColumn(name = "NUMMISSION", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "NUMOBJECTIF", nullable = false, updatable = false) })
 	public List<Objectif> getObjectifs() {
-		return this.mesObjectifs;
+		return this.objectifs;
 	}
 
 	public void setObjectifs(List<Objectif> objectifs) {
-		this.mesObjectifs = objectifs;
+		this.objectifs = objectifs;
 	}
 
 }

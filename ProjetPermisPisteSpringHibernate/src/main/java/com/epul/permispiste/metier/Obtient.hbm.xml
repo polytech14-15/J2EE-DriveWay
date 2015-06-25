@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 3 juin 2015 10:21:18 by Hibernate Tools 4.3.1 -->
+<!-- Generated 25 juin 2015 09:52:23 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="metier.Obtient" table="obtient" catalog="permispiste" optimistic-lock="version">
-        <composite-id name="id" class="metier.ObtientId">
+    <class name="com.epul.permispiste.metier.Obtient" table="obtient" catalog="permispiste" optimistic-lock="version">
+        <composite-id name="id" class="com.epul.permispiste.metier.ObtientId">
             <key-property name="numapprenant" type="int">
                 <column name="NUMAPPRENANT" />
             </key-property>
@@ -15,13 +15,13 @@
                 <column name="NUMACTION" />
             </key-property>
         </composite-id>
-        <many-to-one name="action" class="metier.Action" update="false" insert="false" fetch="select">
+        <many-to-one name="action" class="com.epul.permispiste.metier.Action" update="false" insert="false" fetch="select">
             <column name="NUMACTION" not-null="true" />
         </many-to-one>
-        <many-to-one name="apprenant" class="metier.Apprenant" update="false" insert="false" fetch="select">
+        <many-to-one name="apprenant" class="com.epul.permispiste.metier.Apprenant" update="false" insert="false" fetch="select">
             <column name="NUMAPPRENANT" not-null="true" />
         </many-to-one>
-        <many-to-one name="calendrier" class="metier.Calendrier" update="false" insert="false" fetch="select">
+        <many-to-one name="calendrier" class="com.epul.permispiste.metier.Calendrier" update="false" insert="false" fetch="select">
             <column name="DATEJOUR" length="10" not-null="true" />
         </many-to-one>
         <property name="valeurdebut" type="java.lang.Integer">
