@@ -248,8 +248,10 @@ public class HibernateClient {
 	public void supprimerApprenant(int numApprenant) throws HibernateException, ServiceHibernateException {
 		try {
 			session = ServiceHibernate.currentSession();
-			Query query = session.createQuery("DELETE FROM Apprenant where numapprenant = "+ numApprenant);
-			int delete = query.executeUpdate();
+//			Query query = session.createQuery("DELETE FROM Apprenant where numapprenant = "+ numApprenant);
+//			int delete = query.executeUpdate();
+			Apprenant a = (Apprenant) session.get(Apprenant.class, numApprenant);
+			session.delete(a);
 		} catch (Exception ex) {
 			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
 			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
