@@ -34,11 +34,11 @@
 		<div class="modal-content">
 			<div class="modal-header">Informations</div>
 			<div class="modal-body">
-				<h5>Nom : {{apprenant.nomapprenant}}</h5>
-				<h5>Prénom : {{apprenant.prenomapprenant}}</h5>
+				<h5>Nom : {{apprenant.nom}}</h5>
+				<h5>Prénom : {{apprenant.prenom}}</h5>
 
 				<h3>Liste des scores</h3>
-				<div class="col-md-6">
+					{{#if apprenant.actions}}
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -48,17 +48,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							{{#each apprenant.obtients}}
+							{{#each apprenant.actions}}
 									<tr>
-										<td>aaa</td>
-										<td>{{this.valeurdebut}}</td>
-										<td>{{this.valeurfin}}</td>										
+										<td>{{this.numaction}}</td>
+										<td>{{this.libaction}}</td>
+										<td>{{this.scoremin}}</td>										
 									</tr>
 								{{/each}}
 						</tbody>
 					</table>
+					{{else}}
+						{{apprenant.prenom}} {{apprenant.nom}} n'a effectué aucune action ...
+					{{/if}}
 
-				</div>
 			</div>
 
 		</div>

@@ -1,6 +1,7 @@
 package com.epul.permispiste.controle;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,10 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.epul.permispiste.bean.ActionBean;
+import com.epul.permispiste.bean.ActionsBean;
 import com.epul.permispiste.dao.HibernateClient;
 import com.epul.permispiste.metier.Action;
 import com.epul.permispiste.metier.Apprenant;
 import com.epul.permispiste.metier.Jeu;
+import com.epul.permispiste.metier.Obtient;
 
 /**
  * Handles requests for the application home page.
@@ -165,18 +169,24 @@ public class MultiController extends MultiActionController {
 	 * Affichage de l'apprenant
 	 */
 	@RequestMapping(value = "afficherApprenant.htm", method = RequestMethod.GET)
-	public @ResponseBody Apprenant afficherApprenant(
+	public @ResponseBody ActionsBean afficherApprenant(
 			HttpServletRequest request, @RequestParam Integer numApprenant)
 			throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String apprenantjson = "";
 		Apprenant apprenant = null;
+		List<ActionBean> actionsList = new ArrayList<ActionBean>();
 		HibernateClient unGestClient = new HibernateClient();
 		try {
 			apprenant = unGestClient.getUnApprenant(numApprenant);
+			for (Obtient o : apprenant.getObtients()) {
+				actionsList.add(new ActionBean(o.getAction()));
+			}
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
+
+		ActionsBean actions = new ActionsBean(apprenant, actionsList);
 
 		// try {
 		// apprenantjson = mapper.writeValueAsString(apprenant);
@@ -188,6 +198,6 @@ public class MultiController extends MultiActionController {
 		// } catch (IOException e) {
 		// e.printStackTrace();
 		// }
-		return apprenant;
+		return actions;
 	}
 }
