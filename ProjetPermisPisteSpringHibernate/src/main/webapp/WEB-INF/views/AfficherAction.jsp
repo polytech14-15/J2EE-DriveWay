@@ -24,14 +24,12 @@
 							<tr>
 								<th>NumAction</th>
 								<th>Libelle</th>
-								<th>Score minimum</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>${uneAction.numaction}</td>
 								<td>${uneAction.libaction}</td>
-								<td>${uneAction.scoremin}</td>
 							</tr>
 						</tbody>
 					</table>
