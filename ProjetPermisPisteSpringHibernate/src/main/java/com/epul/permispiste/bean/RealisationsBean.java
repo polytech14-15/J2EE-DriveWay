@@ -4,32 +4,33 @@ import java.util.List;
 
 import com.epul.permispiste.metier.Apprenant;
 
-public class ActionsBean {
+public class RealisationsBean {
 
 	private String nom;
 	private String prenom;
-	private List<ActionBean> actions;
+	private List<RealisationBean> realisations;
 
-	public ActionsBean(String nom, String prenom, List<ActionBean> actions) {
+	public RealisationsBean(String nom, String prenom,
+			List<RealisationBean> realisations) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
-		this.actions = actions;
+		this.realisations = realisations;
 	}
 
-	public ActionsBean(Apprenant a, List<ActionBean> actions) {
+	public RealisationsBean(Apprenant a, List<RealisationBean> realisations) {
 		super();
 		this.nom = a.getNomapprenant();
 		this.prenom = a.getPrenomapprenant();
-		this.actions = actions;
+		this.realisations = realisations;
 	}
 
-	public List<ActionBean> getActions() {
-		return actions;
+	public List<RealisationBean> getActions() {
+		return realisations;
 	}
 
-	public void setActions(List<ActionBean> actions) {
-		this.actions = actions;
+	public void setActions(List<RealisationBean> realisations) {
+		this.realisations = realisations;
 	}
 
 	public String getNom() {

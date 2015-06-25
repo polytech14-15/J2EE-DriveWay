@@ -37,14 +37,15 @@
 				<h5>Nom : {{apprenant.nom}}</h5>
 				<h5>Prénom : {{apprenant.prenom}}</h5>
 
-				<h3>Liste des scores</h3>
+				<h3>Liste des réalisations</h3>
 					{{#if apprenant.actions}}
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>Action</th>
-								<th>Score début</th>
-								<th>Score fin</th>
+								<th>Numéro Action</th>
+								<th>Libellé Action</th>
+								<th>Score obtenu</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -52,7 +53,8 @@
 									<tr>
 										<td>{{this.numaction}}</td>
 										<td>{{this.libaction}}</td>
-										<td>{{this.scoremin}}</td>										
+										<td>{{this.scoremin}}</td>	
+										<td>{{this.date}}</td>									
 									</tr>
 								{{/each}}
 						</tbody>

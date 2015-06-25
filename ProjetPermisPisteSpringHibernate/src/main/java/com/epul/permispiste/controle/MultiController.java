@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.epul.permispiste.bean.ActionBean;
-import com.epul.permispiste.bean.ActionsBean;
+import com.epul.permispiste.bean.RealisationBean;
+import com.epul.permispiste.bean.RealisationsBean;
 import com.epul.permispiste.dao.HibernateClient;
 import com.epul.permispiste.metier.Action;
 import com.epul.permispiste.metier.Apprenant;
@@ -169,24 +169,25 @@ public class MultiController extends MultiActionController {
 	 * Affichage de l'apprenant
 	 */
 	@RequestMapping(value = "afficherApprenant.htm", method = RequestMethod.GET)
-	public @ResponseBody ActionsBean afficherApprenant(
+	public @ResponseBody RealisationsBean afficherApprenant(
 			HttpServletRequest request, @RequestParam Integer numApprenant)
 			throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String apprenantjson = "";
 		Apprenant apprenant = null;
-		List<ActionBean> actionsList = new ArrayList<ActionBean>();
+		List<RealisationBean> realisationsList = new ArrayList<RealisationBean>();
 		HibernateClient unGestClient = new HibernateClient();
 		try {
 			apprenant = unGestClient.getUnApprenant(numApprenant);
 			for (Obtient o : apprenant.getObtients()) {
-				actionsList.add(new ActionBean(o.getAction()));
+				realisationsList.add(new RealisationBean(o));
 			}
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
-		ActionsBean actions = new ActionsBean(apprenant, actionsList);
+		RealisationsBean actions = new RealisationsBean(apprenant,
+				realisationsList);
 
 		// try {
 		// apprenantjson = mapper.writeValueAsString(apprenant);

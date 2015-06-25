@@ -1,10 +1,11 @@
 package com.epul.permispiste.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import com.epul.permispiste.metier.Action;
+import com.epul.permispiste.metier.Obtient;
 
-public class ActionBean implements Serializable {
+public class RealisationBean implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,19 +13,30 @@ public class ActionBean implements Serializable {
 	private int numaction;
 	private String libaction;
 	private Integer scoremin;
+	private Date date;
 
-	public ActionBean(int numaction, String libaction, Integer scoremin) {
+	public RealisationBean(int numaction, String libaction, Integer scoremin,
+			Date date) {
 		super();
 		this.numaction = numaction;
 		this.libaction = libaction;
 		this.scoremin = scoremin;
 	}
 
-	public ActionBean(Action a) {
+	public RealisationBean(Obtient o) {
 		super();
-		this.numaction = a.getNumaction();
-		this.libaction = a.getLibaction();
-		this.scoremin = a.getScoremin();
+		this.numaction = o.getAction().getNumaction();
+		this.libaction = o.getAction().getLibaction();
+		this.scoremin = o.getAction().getScoremin();
+		this.date = o.getCalendrier().getDatejour();
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public int getNumaction() {
