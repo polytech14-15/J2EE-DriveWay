@@ -2,6 +2,6 @@
 
 <H1>Bienvenue dans l'application Permis Piste</H1>
 <br>
-<a href="afficherJeux.htm">Voir la liste des jeux</a>
+<a href="afficherLesJeux.htm">Voir la liste des jeux</a>
 </body>
 </html>
