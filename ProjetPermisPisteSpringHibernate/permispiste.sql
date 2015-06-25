@@ -28,22 +28,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `action` (
   `NUMACTION` int(11) NOT NULL AUTO_INCREMENT,
-  `ACT_NUMACTION` int(11) DEFAULT NULL,
   `LIBACTION` char(25) DEFAULT NULL,
-  `SCOREMIN` int(11) DEFAULT NULL,
   PRIMARY KEY (`NUMACTION`),
-  KEY `A_POUR_SUCCESSEUR_FK` (`ACT_NUMACTION`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=0;
 
 --
 -- Contenu de la table `action`
 --
 
-INSERT INTO `action` (`NUMACTION`, `ACT_NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
-(1, null, 'lala', 20),
-(2, NULL, 'Manger biloute', 10),
-(3, NULL, 'Manger une pomme', 1000),
-(4, NULL, 'Chanter', 10);
+INSERT INTO `action` (`NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
+(1, 'lala', 20),
+(2, 'Manger biloute', 10),
+(3, 'Manger une pomme', 1000),
+(4, 'Chanter', 10);
 
 -- --------------------------------------------------------
 
