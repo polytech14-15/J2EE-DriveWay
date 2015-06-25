@@ -256,12 +256,6 @@ CREATE TABLE IF NOT EXISTS `regle` (
 --
 
 --
--- Contraintes pour la table `action`
---
-ALTER TABLE `action`
-  ADD CONSTRAINT `FK_ACTION_A_POUR_SU_ACTION` FOREIGN KEY (`ACT_NUMACTION`) REFERENCES `action` (`NUMACTION`);
-
---
 -- Contraintes pour la table `appartient`
 --
 ALTER TABLE `appartient`
