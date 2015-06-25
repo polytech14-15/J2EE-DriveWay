@@ -51,26 +51,6 @@ public class MultiController extends MultiActionController {
 	}
 
 	/**
-	 * Affichage de l'apprenant
-	 */
-	@RequestMapping(value = "afficherApprenant.htm")
-	public ModelAndView afficherApprenant(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String destinationPage;
-
-		HibernateClient unGestClient = new HibernateClient();
-		try {
-			// TODO
-			Apprenant apprenant = unGestClient.getUnApprenant(0);
-			request.setAttribute("apprenant", apprenant);
-		} catch (Exception e) {
-			request.setAttribute("MesErreurs", e.getMessage());
-		}
-		destinationPage = "/AfficherApprenant";
-		return new ModelAndView(destinationPage);
-	}
-
-	/**
 	 * Affichage de tous les jouets
 	 */
 	@RequestMapping(value = "afficherJeux.htm")
