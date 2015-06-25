@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
@@ -79,6 +81,7 @@ public class Obtient implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "NUMAPPRENANT", nullable = false, insertable = false, updatable = false)
+	@JsonBackReference
 	public Apprenant getApprenant() {
 		return this.apprenant;
 	}
