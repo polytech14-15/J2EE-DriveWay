@@ -166,54 +166,63 @@ public class MultiController extends MultiActionController {
 		destinationPage = "/ajoutApprenant";
 		return new ModelAndView(destinationPage);
 	}
-	
+
 	/**
 	 * Modification d'un apprenant
 	 */
 	@RequestMapping(value = "modifierApprenant.htm")
 	public ModelAndView modifierApprenant(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-//		String destinationPage;
+		// String destinationPage;
 		HibernateClient unGestClient = new HibernateClient();
-		Apprenant a = unGestClient.getUnApprenant(new Integer(request.getParameter("id")));
-			a.setNomapprenant(request.getParameter("nom"));
-			a.setPrenomapprenant(request.getParameter("prenom"));
-			try {
-				unGestClient.sauverApprenant(a);
-			} catch (Exception e) {
-				request.setAttribute("MesErreurs", e.getMessage());
-				request.setAttribute("messageDanger",
-						"Erreur lors de l'enregistrement ...");
-			}
-			request.setAttribute("messageSuccess", "Apprenant modifié avec succès !");
+		Apprenant a = unGestClient.getUnApprenant(new Integer(request
+				.getParameter("id")));
+		a.setNomapprenant(request.getParameter("nom"));
+		a.setPrenomapprenant(request.getParameter("prenom"));
+		try {
+			unGestClient.sauverApprenant(a);
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de l'enregistrement ...");
+		}
+		request.setAttribute("messageSuccess",
+				"Apprenant modifié avec succès !");
 
-			return afficherLesApprenants(request, response);
-//		destinationPage = "/afficherLesApprenants";
-//		destinationPage = "redirect:/afficherLesApprenants.htm";
-//		return new ModelAndView(destinationPage);
+		return afficherLesApprenants(request, response);
+		// destinationPage = "/afficherLesApprenants";
+		// destinationPage = "redirect:/afficherLesApprenants.htm";
+		// return new ModelAndView(destinationPage);
 	}
-	
+
 	/**
 	 * Suppression d'un apprenant
 	 */
 	@RequestMapping(value = "supprimerApprenant.htm")
 	public ModelAndView supprimerApprenant(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-//		String destinationPage;
+		// String destinationPage;
 		HibernateClient unGestClient = new HibernateClient();
-			try {
-				System.out.println("lala");
-				unGestClient.supprimerApprenant(new Integer(request.getParameter("idSuppr")));
-			} catch (Exception e) {
-				request.setAttribute("MesErreurs", e.getMessage());
-				request.setAttribute("messageDanger", "Erreur lors de la suppression ..." + e.getMessage());
-			}
-			request.setAttribute("messageSuccess", "Apprenant supprimé avec succès !");
+		boolean erreur = false;
+		try {
+			System.out.println("lala");
+			unGestClient.supprimerApprenant(new Integer(request
+					.getParameter("idSuppr")));
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de la suppression ..." + e.getMessage());
+			erreur = true;
+		}
+		if (!erreur) {
+			request.setAttribute("messageSuccess",
+					"Apprenant supprimé avec succès !");
+		}
 
-			return afficherLesApprenants(request, response);
-//		destinationPage = "/afficherLesApprenants";
-//		destinationPage = "redirect:/afficherLesApprenants.htm";
-//		return new ModelAndView(destinationPage);
+		return afficherLesApprenants(request, response);
+		// destinationPage = "/afficherLesApprenants";
+		// destinationPage = "redirect:/afficherLesApprenants.htm";
+		// return new ModelAndView(destinationPage);
 	}
 
 	/**

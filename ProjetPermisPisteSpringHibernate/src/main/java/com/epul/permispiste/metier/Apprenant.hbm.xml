@@ -14,7 +14,7 @@
         <property name="prenomapprenant" type="string">
             <column name="PRENOMAPPRENANT" length="25" />
         </property>
-        <set name="obtients" table="obtient" inverse="true" lazy="true" fetch="select">
+        <set name="obtients" cascade="delete" table="obtient" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="NUMAPPRENANT" not-null="true" />
             </key>
