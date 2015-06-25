@@ -96,6 +96,27 @@ public class MultiController extends MultiActionController {
 	}
 
 	/**
+	 * Affichage dun jeu
+	 */
+	@RequestMapping(value = "afficherJeu.htm")
+	public ModelAndView afficherJeu(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			if (jeux != null) {
+				request.setAttribute("jeux", jeux);
+			}
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
+		}
+		destinationPage = "/AfficherJeu";
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
 	 * Affichage des actions
 	 */
 	@RequestMapping(value = "listeActions.htm")
