@@ -1,31 +1,7 @@
 <%@ include file="head.jsp"%>
 
 <script type="text/javascript">
-	function getActions(numApprenant) {
-		console.log("salut");
-		$.ajax({
-			url : 'afficherApprenant.htm', // La ressource ciblée
-			type : 'GET', // Le type de la requête HTTP.
-			dataType : 'json',
-			data : 'numApprenant=' + numApprenant,
-			success : function(data) {
-				var context = {
-					apprenant : data
-				};
-				console.log(context);
-				var source = $("#entry-template").html();
-				var template = Handlebars.compile(source);
-				$("#content-placeholder").html(template(context));
-				$("#myModal").modal('show');
-
-			},
-			error : function(data) {
-				console.log(data);
-			}
-		});
-		console.log("salut");
-	}
-
+$(document).ready(function() {
 	$(document).on("click", ".modifierApprenant", function () {
 	    var num = $(this).data('numero');
 	    var nom = $(this).data('nom');
@@ -34,6 +10,29 @@
 	    $(".modal-body #nom").val( nom );
 	    $(".modal-body #prenom").val( prenom );
 	});
+});
+
+function getActions(numApprenant) {
+	$.ajax({
+		url : 'afficherApprenant.htm', // La ressource ciblée
+		type : 'GET', // Le type de la requête HTTP.
+		dataType : 'json',
+		data : 'numApprenant=' + numApprenant,
+		success : function(data) {
+			var context = {
+				apprenant : data
+			};
+			var source = $("#entry-template").html();
+			var template = Handlebars.compile(source);
+			$("#content-placeholder").html(template(context));
+			$("#myModal").modal('show');
+
+		},
+		error : function(data) {
+			console.log(data);
+		}
+	});
+}
 </script>
 
 <!-- Modal HTML -->
