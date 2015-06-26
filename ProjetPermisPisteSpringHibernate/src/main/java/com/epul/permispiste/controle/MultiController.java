@@ -1,5 +1,6 @@
 package com.epul.permispiste.controle;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,8 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +29,7 @@ import com.epul.permispiste.bean.RealisationsBean;
 import com.epul.permispiste.bean.ScoreBean;
 import com.epul.permispiste.bean.ScoresBean;
 import com.epul.permispiste.dao.HibernateClient;
+import com.epul.permispiste.gestiondeserreurs.ServiceHibernateException;
 import com.epul.permispiste.metier.Action;
 import com.epul.permispiste.metier.Apprenant;
 import com.epul.permispiste.metier.Jeu;
@@ -88,15 +92,45 @@ public class MultiController extends MultiActionController {
 
 		HibernateClient unGestClient = new HibernateClient();
 		try {
-			Action action = unGestClient.getUneAction(Integer.parseInt(request
-					.getParameter("NumAction")));
+			List<Action> actions = unGestClient.getToutesLesActions();
+			request.setAttribute("actions", actions);
+
+			int numAction = Integer.parseInt(request.getParameter("action"));
+			Action action = unGestClient.getUneAction(numAction);
 			if (action != null) {
 				request.setAttribute("uneAction", action);
 			}
 		} catch (Exception e) {
-			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
+			List<Action> actions = unGestClient.getToutesLesActions();
+			request.setAttribute("actions", actions);
 		}
 		destinationPage = "/AfficherAction";
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Affichage d'une action
+	 */
+	@RequestMapping(value = "afficherMissions.htm")
+	public ModelAndView afficherMissions(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			request.setAttribute("jeux", jeux);
+
+			int numJeu = Integer.parseInt(request.getParameter("numJeu"));
+			Jeu j = unGestClient.getUnJeu(numJeu);
+			if (j != null) {
+				request.setAttribute("unJeu", j);
+			}
+		} catch (Exception e) {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			request.setAttribute("jeux", jeux);
+		}
+		destinationPage = "/AfficherMissions";
 		return new ModelAndView(destinationPage);
 	}
 
@@ -273,16 +307,6 @@ public class MultiController extends MultiActionController {
 		RealisationsBean actions = new RealisationsBean(apprenant,
 				realisationsList);
 
-		// try {
-		// apprenantjson = mapper.writeValueAsString(apprenant);
-		// System.out.println(apprenantjson);
-		// } catch (JsonGenerationException e) {
-		// e.printStackTrace();
-		// } catch (JsonMappingException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
 		return actions;
 	}
 
@@ -291,18 +315,52 @@ public class MultiController extends MultiActionController {
 	 */
 	@RequestMapping(value = "genererScore.htm")
 	public @ResponseBody int genererScore(HttpServletRequest request,
-			@RequestParam String scores) throws Exception {
+			@RequestParam String scores) {
 		ObjectMapper mapper = new ObjectMapper();
-		ScoresBean scores2 = mapper.readValue(scores, ScoresBean.class);
+		ScoresBean scores2 = null;
+		boolean erreur = false;
+		try {
+			scores2 = mapper.readValue(scores, ScoresBean.class);
+		} catch (JsonParseException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de la lecture des données ...");
+			erreur = true;
+		} catch (JsonMappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de la lecture des données ...");
+			erreur = true;
+		} catch (IOException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de la lecture des données ...");
+			erreur = true;
+		}
 
 		Apprenant apprenant = null;
 		List<RealisationBean> realisationsList = new ArrayList<RealisationBean>();
 		HibernateClient unGestClient = new HibernateClient();
-		unGestClient.sauverScores(scores2);
+		try {
+			unGestClient.sauverScores(scores2);
+		} catch (ServiceHibernateException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de l'enregistrement ...");
+			erreur = true;
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			request.setAttribute("messageDanger",
+					"Erreur lors de l'enregistrement ...");
+			erreur = true;
+		}
 
 		int score = 0;
 		for (ScoreBean s : scores2.getScores()) {
 			score += s.getScore();
+		}
+		if (!erreur) {
+			request.setAttribute("messageSuccess", "Score envoyé !");
 		}
 		return score;
 	}

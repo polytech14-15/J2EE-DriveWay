@@ -30,12 +30,17 @@
 	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<h3>Liste des jeux</h3>
-			<c:forEach items="${jeux}" var="jeux">
+			<c:forEach items="${jeux}" var="jeu">
 				<div class="column">
 					<div class="portlet">
-						<div class="portlet-header">${jeux.numjeu}. ${jeux.libellejeu}</div>
-						<div class="portlet-content">
-						<a href="afficherJeu.htm?id=${jeux.numjeu}"><button type="button" class="btn btn-default btn-xs">Jouer</button></a>
+						<div class="portlet-header">${jeu.numjeu}. ${jeu.libellejeu}</div>
+						<div class="portlet-content">Missions : <br />
+						<ul>
+						<c:forEach items="${jeu.missions}" var="mission">
+						<li>${mission.nummission} - ${mission.libmission}</li>
+						</c:forEach>
+						</ul>
+						<a href="afficherJeu.htm?id=${jeu.numjeu}"><button type="button" class="btn btn-default btn-xs">Jouer</button></a>
 						</div>
 					</div>
 				</div>
