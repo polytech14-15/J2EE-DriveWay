@@ -67,7 +67,9 @@ public class MultiController extends MultiActionController {
 		HibernateClient unGestClient = new HibernateClient();
 		try {
 			Jeu jeu = unGestClient.getUnJeu(id);
+			List<Apprenant> apprenants = unGestClient.getTouslesApprenant();
 			request.setAttribute("jeu", jeu);
+			request.setAttribute("apprenants", apprenants);
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}

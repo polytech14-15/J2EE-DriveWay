@@ -7,6 +7,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.epul.permispiste.bean.ScoreBean;
+import com.epul.permispiste.bean.ScoresBean;
 import com.epul.permispiste.gestiondeserreurs.MonException;
 import com.epul.permispiste.gestiondeserreurs.ServiceHibernateException;
 import com.epul.permispiste.metier.Action;
@@ -237,6 +239,34 @@ public class HibernateClient {
 			session.beginTransaction();
 			session.saveOrUpdate(apprenant);
 			session.getTransaction().commit();
+		} catch (ServiceHibernateException ex) {
+			throw new ServiceHibernateException("Erreur de service Hibernate: "
+					+ ex.getMessage(), ex);
+		} catch (Exception ex) {
+			throw new MonException("Erreur  Hibernate: ", ex.getMessage());
+		}
+	}
+
+	public void sauverScores(ScoresBean scores)
+			throws ServiceHibernateException, Exception {
+		try {
+			// Sauvegarde le calendrier
+			Calendrier c = new Calendrier(scores.getDate());
+			session = ServiceHibernate.currentSession();
+			session.beginTransaction();
+			session.saveOrUpdate(c);
+			session.getTransaction().commit();
+
+			// Sauvegarde obtiens
+			for (ScoreBean s : scores.getScores()) {
+				session = ServiceHibernate.currentSession();
+				// On passe une requ�te de type SQL mlais on travaille sur la
+				// classe
+				Query query = session
+						.createQuery("insert into Obtient(NUMAPPRENANT, stock_name)"
+								+ "select stock_code, stock_name from backup_stock");
+				int result = query.executeUpdate();
+			}
 		} catch (ServiceHibernateException ex) {
 			throw new ServiceHibernateException("Erreur de service Hibernate: "
 					+ ex.getMessage(), ex);
