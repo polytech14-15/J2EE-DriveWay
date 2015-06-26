@@ -10,6 +10,9 @@ public class ScoreBean implements Serializable {
 	private int idAction;
 	private int score;
 
+	public ScoreBean() {
+	}
+
 	public ScoreBean(int idAction, int score) {
 		super();
 		this.idAction = idAction;
