@@ -21,12 +21,12 @@
 
 
 			<c:if test="${not empty unJeu}">
-				<h1>Jeu ${unJeu.numjeu} : ${unJeu.libellejeu}</h1>
-				<h2>Missions :</h2>
-				<c:forEach items="${unJeu.missions}" var="mission">
+				<h1>Jeu ${unJeu.numjeu} : ${unJeu.libellejeu}</h1>				
+				<c:forEach items="${unJeu.missions}" var="mission">				
 					<div class="col-md-12">
+					<h2>Mission : ${mission.nummission}- ${mission.libmission }</h2>
+					<h4>Objectifs :</h4>
 						<table class="table table-striped">
-							<caption>${mission.nummission}- ${mission.libmission }</caption>
 							<thead>
 								<tr>
 									<th>Numéro objectif</th>
