@@ -4,16 +4,6 @@ CREATE TABLE IF NOT EXISTS `action` (
   PRIMARY KEY (`NUMACTION`)
 ) ;
 
---
--- Contenu de la table `action`
---
-
-INSERT INTO `action` (`NUMACTION`, `LIBACTION`) VALUES
-(1, 'lala'),
-(2, 'Manger biloute'),
-(3, 'Manger une pomme'),
-(4, 'Chanter');
-
 -- --------------------------------------------------------
 
 --
@@ -41,20 +31,6 @@ CREATE TABLE IF NOT EXISTS `apprenant` (
   PRIMARY KEY (`NUMAPPRENANT`)
 ) ;
 
---
--- Contenu de la table `apprenant`
---
-
-INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALUES
-(1, 'z', 'z'),
-(2, 'lili', 'lili'),
-(3, 'lolo', 'lolo'),
-(4, 'mpmp', 'mpmp'),
-(5, 'ppp', 'ppp'),
-(6, 'u', 'u'),
-(7, 'popo', 'popo'),
-(8, 'Bianco', 'Camille');
-
 -- --------------------------------------------------------
 
 --
@@ -65,13 +41,6 @@ CREATE TABLE IF NOT EXISTS `calendrier` (
   `DATEJOUR` date NOT NULL,
   PRIMARY KEY (`DATEJOUR`)
 )  ;
-
---
--- Contenu de la table `calendrier`
---
-
-INSERT INTO `calendrier` (`DATEJOUR`) VALUES
-('2015-06-08');
 
 -- --------------------------------------------------------
 
@@ -116,14 +85,6 @@ CREATE TABLE IF NOT EXISTS `indicateur` (
   KEY `EST_VALORISE_FK` (`NUMACTION`)
 ) ;
 
---
--- Contenu de la table `indicateur`
---
-
-INSERT INTO `indicateur` (`NUMINDIC`, `NUMACTION`, `LIBINDIC`, `POIDS`) VALUES
-(1, 1, 'Commencer par le hau', 5),
-(2, 1, 'Etre gentil', 10);
-
 -- --------------------------------------------------------
 
 --
@@ -135,14 +96,6 @@ CREATE TABLE IF NOT EXISTS `jeu` (
   `LIBELLEJEU` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMJEU`)
 ) ;
-
---
--- Contenu de la table `jeu`
---
-
-INSERT INTO `jeu` (`NUMJEU`, `LIBELLEJEU`) VALUES
-(1, 'Pilotage'),
-(2, 'Manoeuvre');
 
 -- --------------------------------------------------------
 
@@ -187,14 +140,6 @@ CREATE TABLE IF NOT EXISTS `obtient` (
   KEY `OBTIENT3_FK` (`DATEJOUR`),
   KEY `OBTIENT3_FK2` (`NUMACTION`)
 ) ;
-
---
--- Contenu de la table `obtient`
---
-
-INSERT INTO `obtient` (`NUMAPPRENANT`, `DATEJOUR`, `NUMACTION`, `VALEURDEBUT`, `VALEURFIN`) VALUES
-(1, '2015-06-08', 2, 1000, 2000),
-(1, '2015-06-08', 3, 1000, 2000);
 
 -- --------------------------------------------------------
 
