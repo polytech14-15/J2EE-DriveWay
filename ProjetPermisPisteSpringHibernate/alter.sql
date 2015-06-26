@@ -14,25 +14,6 @@ INSERT INTO `action` (`NUMACTION`, `LIBACTION`) VALUES
 (6, 'Actionner le siège éjectable');
 
 --
--- Contenu de la table `appartient`
---
-
-INSERT INTO `appartient` (`NUMJEU`, `NUMACTION`) VALUES
-(1, 1),
-(1, 4),
-(1, 5),
-(1, 6),
-(2, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(2, 5),
-(2, 6),
-(3, 1),
-(3, 4),
-(3, 5);
-
---
 -- Contenu de la table `apprenant`
 --
 
@@ -58,40 +39,7 @@ INSERT INTO `calendrier` (`DATEJOUR`) VALUES
 ('2015-06-14'),
 ('2015-06-15');
 
---
--- Contenu de la table `est_associe`
---
 
-INSERT INTO `est_associe` (`NUMACTION`, `NUMOBJECTIF`) VALUES
-(1, 3),
-(1, 4),
-(2, 2),
-(3, 2),
-(3, 2),
-(3, 6),
-(4, 1),
-(4, 2),
-(4, 3),
-(4, 4),
-(5, 3),
-(5, 4),
-(5, 5),
-(6, 1),
-(6, 6);
-
---
--- Contenu de la table `fixe`
---
-
-INSERT INTO `fixe` (`NUMMISSION`, `NUMOBJECTIF`) VALUES
-(1, 3),
-(2, 5),
-(3, 1),
-(4, 6),
-(5, 3),
-(6, 2),
-(7, 4),
-(8, 5);
 
 --
 -- Contenu de la table `indicateur`
@@ -142,6 +90,17 @@ INSERT INTO `objectif` (`NUMOBJECTIF`, `LIBOBECTIF`) VALUES
 (6, 'Assurer la sécurité des passagers');
 
 --
+-- Contenu de la table `regle`
+--
+
+INSERT INTO `regle` (`NUMREGLE`, `LIBREGLE`, `SCOREMIN`) VALUES
+(1, 'Regle1', 1),
+(2, 'Regle2', 2),
+(3, 'Regle3', 5),
+(4, 'Regle4', 10),
+(5, 'Regle5', 5);
+
+--
 -- Contenu de la table `obtient`
 --
 
@@ -168,12 +127,54 @@ INSERT INTO `possede` (`NUMACTION`, `NUMREGLE`) VALUES
 (6, 5);
 
 --
--- Contenu de la table `regle`
+-- Contenu de la table `appartient`
 --
 
-INSERT INTO `regle` (`NUMREGLE`, `LIBREGLE`, `SCOREMIN`) VALUES
-(1, 'Regle1', 1),
-(2, 'Regle2', 2),
-(3, 'Regle3', 5),
-(4, 'Regle4', 10),
-(5, 'Regle5', 5);
+INSERT INTO `appartient` (`NUMJEU`, `NUMACTION`) VALUES
+(1, 1),
+(1, 4),
+(1, 5),
+(1, 6),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(3, 1),
+(3, 4),
+(3, 5);
+
+--
+-- Contenu de la table `est_associe`
+--
+
+INSERT INTO `est_associe` (`NUMACTION`, `NUMOBJECTIF`) VALUES
+(1, 3),
+(1, 4),
+(2, 2),
+(3, 2),
+(3, 6),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(5, 3),
+(5, 4),
+(5, 5),
+(6, 1),
+(6, 6);
+
+--
+-- Contenu de la table `fixe`
+--
+
+INSERT INTO `fixe` (`NUMMISSION`, `NUMOBJECTIF`) VALUES
+(1, 3),
+(2, 5),
+(3, 1),
+(4, 6),
+(5, 3),
+(6, 2),
+(7, 4),
+(8, 5);
