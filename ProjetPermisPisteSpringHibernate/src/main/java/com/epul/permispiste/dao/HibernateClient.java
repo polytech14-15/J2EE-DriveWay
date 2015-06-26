@@ -276,6 +276,7 @@ public class HibernateClient {
 				session.saveOrUpdate(o);
 				session.getTransaction().commit();
 			}
+			session.getTransaction().commit();
 		} catch (ServiceHibernateException ex) {
 			throw new ServiceHibernateException("Erreur de service Hibernate: "
 					+ ex.getMessage(), ex);
