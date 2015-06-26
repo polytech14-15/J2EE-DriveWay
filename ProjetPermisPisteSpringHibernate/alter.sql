@@ -37,8 +37,8 @@ INSERT INTO `appartient` (`NUMJEU`, `NUMACTION`) VALUES
 --
 
 INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALUES
-(1, 'DEGRANGE', 'Quentin'),
-(2, 'DE SOUSA', 'Jérémy'),
+(1, 'DE SOUSA', 'Jérémy'),
+(2, 'DEGRANGE', 'Quentin'),
 (3, 'DURET', 'Sébastien'),
 (4, 'SAYN-URPAR', 'Marc-Antoine'),
 (5, 'BIANCO', 'Camille'),
