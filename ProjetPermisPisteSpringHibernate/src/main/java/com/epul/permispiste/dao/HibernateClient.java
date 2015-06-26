@@ -19,6 +19,7 @@ import com.epul.permispiste.metier.Jeu;
 import com.epul.permispiste.metier.Mission;
 import com.epul.permispiste.metier.Objectif;
 import com.epul.permispiste.metier.Obtient;
+import com.epul.permispiste.metier.ObtientId;
 import com.epul.permispiste.metier.Regle;
 import com.epul.permispiste.service.ServiceHibernate;
 
@@ -283,19 +284,19 @@ public class HibernateClient {
 		}
 	}
 
-
 	public void supprimerApprenant(int numApprenant) throws HibernateException,
-	ServiceHibernateException {
+			ServiceHibernateException {
 		try {
 			session = ServiceHibernate.currentSession();
 			session.beginTransaction();
 
-			Apprenant a = (Apprenant) session.get(Apprenant.class, numApprenant);
-			for (Obtient o : a.getObtients()){
+			Apprenant a = (Apprenant) session
+					.get(Apprenant.class, numApprenant);
+			for (Obtient o : a.getObtients()) {
 				session.delete(o);
 			}
 			session.delete(a);
-			
+
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println("Erreur ServiceHiber : " + ex.getMessage());
