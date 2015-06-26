@@ -92,15 +92,45 @@ public class MultiController extends MultiActionController {
 
 		HibernateClient unGestClient = new HibernateClient();
 		try {
-			Action action = unGestClient.getUneAction(Integer.parseInt(request
-					.getParameter("NumAction")));
+			List<Action> actions = unGestClient.getToutesLesActions();
+			request.setAttribute("actions", actions);
+
+			int numAction = Integer.parseInt(request.getParameter("action"));
+			Action action = unGestClient.getUneAction(numAction);
 			if (action != null) {
 				request.setAttribute("uneAction", action);
 			}
 		} catch (Exception e) {
-			request.setAttribute("MesErreurs", "Numéro d'action invalide !");
+			List<Action> actions = unGestClient.getToutesLesActions();
+			request.setAttribute("actions", actions);
 		}
 		destinationPage = "/AfficherAction";
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Affichage d'une action
+	 */
+	@RequestMapping(value = "afficherMissions.htm")
+	public ModelAndView afficherMissions(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String destinationPage;
+
+		HibernateClient unGestClient = new HibernateClient();
+		try {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			request.setAttribute("jeux", jeux);
+
+			int numJeu = Integer.parseInt(request.getParameter("numJeu"));
+			Jeu j = unGestClient.getUnJeu(numJeu);
+			if (j != null) {
+				request.setAttribute("unJeu", j);
+			}
+		} catch (Exception e) {
+			List<Jeu> jeux = unGestClient.getTouslesJeux();
+			request.setAttribute("jeux", jeux);
+		}
+		destinationPage = "/AfficherMissions";
 		return new ModelAndView(destinationPage);
 	}
 

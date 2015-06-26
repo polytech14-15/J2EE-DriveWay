@@ -85,6 +85,7 @@
 				</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="afficherLesJeux.htm">Afficher les jeux</a></li>
+						<li><a href="afficherMissions.htm">Afficher les missions/objectifs d'un jeu</a></li>
 					</ul>
 					</li>
 		</div>
