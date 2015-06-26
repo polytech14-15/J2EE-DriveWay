@@ -74,8 +74,7 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					Apprenants<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="listeActions.htm">Afficher toutes les
-								actions</a></li>
+						<li><a href="ajoutApprenant.htm">Ajouter un apprenant</a></li>
 						<li><a href="afficherLesApprenants.htm">Afficher les
 								apprenants</a></li>
 					</ul></li>

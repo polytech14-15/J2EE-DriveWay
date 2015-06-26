@@ -33,9 +33,8 @@
 			<c:forEach items="${jeux}" var="jeux">
 				<div class="column">
 					<div class="portlet">
-						<div class="portlet-header">${jeux.numjeu}</div>
+						<div class="portlet-header">${jeux.numjeu}. ${jeux.libellejeu}</div>
 						<div class="portlet-content">
-						${jeux.libellejeu}
 						<a href="afficherJeu.htm?id=${jeux.numjeu}"><button type="button" class="btn btn-default btn-xs">Jouer</button></a>
 						</div>
 					</div>
