@@ -18,6 +18,8 @@ import com.epul.permispiste.metier.Indicateur;
 import com.epul.permispiste.metier.Jeu;
 import com.epul.permispiste.metier.Mission;
 import com.epul.permispiste.metier.Objectif;
+import com.epul.permispiste.metier.Obtient;
+import com.epul.permispiste.metier.ObtientId;
 import com.epul.permispiste.metier.Regle;
 import com.epul.permispiste.service.ServiceHibernate;
 
@@ -257,15 +259,22 @@ public class HibernateClient {
 			session.saveOrUpdate(c);
 			session.getTransaction().commit();
 
+			int numapprenant = scores.getIdApprenant();
+			Apprenant a = (Apprenant) session
+					.get(Apprenant.class, numapprenant);
+
 			// Sauvegarde obtiens
 			for (ScoreBean s : scores.getScores()) {
-				session = ServiceHibernate.currentSession();
-				// On passe une requ�te de type SQL mlais on travaille sur la
-				// classe
-				Query query = session
-						.createQuery("insert into Obtient(NUMAPPRENANT, stock_name)"
-								+ "select stock_code, stock_name from backup_stock");
-				int result = query.executeUpdate();
+				Action action = (Action) session.get(Action.class,
+						s.getIdAction());
+				ObtientId oid = new ObtientId(numapprenant, scores.getDate(),
+						s.getIdAction());
+
+				Obtient o = new Obtient(oid, action, a, c, s.getScore(),
+						s.getScore());
+				session.beginTransaction();
+				session.saveOrUpdate(o);
+				session.getTransaction().commit();
 			}
 		} catch (ServiceHibernateException ex) {
 			throw new ServiceHibernateException("Erreur de service Hibernate: "

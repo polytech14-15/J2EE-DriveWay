@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.epul.permispiste.bean.RealisationBean;
 import com.epul.permispiste.bean.RealisationsBean;
+import com.epul.permispiste.bean.ScoreBean;
 import com.epul.permispiste.bean.ScoresBean;
 import com.epul.permispiste.dao.HibernateClient;
 import com.epul.permispiste.metier.Action;
@@ -297,20 +298,12 @@ public class MultiController extends MultiActionController {
 		Apprenant apprenant = null;
 		List<RealisationBean> realisationsList = new ArrayList<RealisationBean>();
 		HibernateClient unGestClient = new HibernateClient();
+		unGestClient.sauverScores(scores2);
 
-		RealisationsBean actions = new RealisationsBean(apprenant,
-				realisationsList);
-
-		// try {
-		// apprenantjson = mapper.writeValueAsString(apprenant);
-		// System.out.println(apprenantjson);
-		// } catch (JsonGenerationException e) {
-		// e.printStackTrace();
-		// } catch (JsonMappingException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		return 0;
+		int score = 0;
+		for (ScoreBean s : scores2.getScores()) {
+			score += s.getScore();
+		}
+		return score;
 	}
 }
